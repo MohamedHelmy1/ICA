@@ -1,0 +1,19 @@
+#top{
+    margin: 10px;
+}
+main{
+    color: white;
+}
+input{
+    border-radius: 20px;
+    width: 500px;
+    border-width: 1px;
+    border-color: black;
+}
+form button{
+    width: 100px;
+    color: #007f88;
+    background-color: white;
+    border-radius: 20px 5px;
+    font-size: 30px;
+}

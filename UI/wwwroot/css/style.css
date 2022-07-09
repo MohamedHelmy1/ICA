@@ -1,0 +1,54 @@
+header{
+    padding: 10px;
+}
+#home,#contact,#about,#dropdownMenuLink{
+    width: 250px;
+}
+#ica,#footer{
+    font-family: 'Smooch', cursive;
+    color: #007f88;
+    width: 100%;
+    background-color: black;
+    float: left;
+}
+#icalogo{
+    height: 100px;
+    width: 100px;
+    background-color: black;
+}
+header{
+    font-family: 'Lobster', cursive;
+}
+main{
+    background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #007f88 50%);
+}
+#carouselExampleCaptions{
+    padding: 15px;
+}
+#login{
+    padding: 100px;
+    font-family: 'Lobster', cursive;
+}
+#login input{
+    border-radius: 30px;
+    border: black 5px;
+}
+#submitlgn{
+    width: 100px;
+    border: 0px;
+    border-radius: 20px;
+    color: #007f88;
+}
+#sublgn{
+    border-radius: 20px;
+    color: white;
+    background-color: #007f88;
+}
+#gitbtn{
+    color: white;
+    background-color: #007f88;
+}
+.card-text{
+    text-align: center;
+}

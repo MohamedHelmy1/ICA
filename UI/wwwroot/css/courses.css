@@ -1,0 +1,48 @@
+.card{
+margin: 10px;
+border-radius: 20px;
+}
+.card img{
+    border-radius: 20px;
+}
+.btn{
+    color: white;
+    background-color: #007f88;
+}
+main{
+    font-family: 'Almarai', sans-serif;
+    font-size: 20px;
+
+    padding: 10px;
+}
+article img{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+    width: 500px;
+    border-radius: 20px;
+}
+#ctitle{
+    color: black;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+}
+#signb a{
+    text-decoration: none;
+    color: #007f88;
+    font-size: 30px;
+}
+#signb{
+    background-color: white;
+    border-radius: 20px 5px;
+    border: 0px;
+    width: 110px;
+    height: 50px;
+}
+#signb:hover{
+    background-color: #a8abac;
+}
+#content{
+    color: white;
+}

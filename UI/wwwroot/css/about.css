@@ -1,0 +1,16 @@
+#about{
+    background-color: #007f88;
+    color: white;
+}
+#home,#contact{
+    color: #007f88;
+}
+hr{
+    color: white;
+}
+#artc1{
+    font-size: 20px;
+    text-align: right;
+    color: white;
+    font-family: 'Tajawal', sans-serif;
+}
