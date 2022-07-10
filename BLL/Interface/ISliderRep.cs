@@ -10,9 +10,9 @@ namespace BLL.Interface
     public interface ISliderRep
     {
         bool Add(SliderViewModel slider);
-        bool Edit(SliderViewModel slider);
+        bool Edit(UpdateSliderViewModel slider);
         IQueryable<SliderViewModel> GetAll();
-        SliderViewModel GetById(int id);
+        UpdateSliderViewModel GetById(int id);
 
         bool Delete(int id);
     }

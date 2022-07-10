@@ -17,6 +17,7 @@ namespace UI.Areas.Admin.Controllers
         {
             return View();
         }
+        #region Slider
         public IActionResult Slider()
         {
             return View();
@@ -31,21 +32,111 @@ namespace UI.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var data=slider.Add(sliders);
-                return RedirectToAction("AddSlider");
+                if (data == true)
+                {
+                    return RedirectToAction("Slider");
+
+                }
+                else
+                {
+                    return View(sliders);
+                }
             }
-            return View();
+            return View(sliders);
         }
-        public IActionResult UpdateSlider()
+        [HttpPost]
+        public IActionResult DeleteSlider(int id)
         {
-            return View();
+           var data=slider.Delete(id);
+            return Json(data);
         }
+        public IActionResult UpdateSlider(int id)
+        {
+            var data=slider.GetById(id);
+            return View(data);
+        }
+        [HttpPost]
+        [ActionName("UpdateSlider")]
+        public IActionResult UpdateSliders(UpdateSliderViewModel sliders)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = slider.Edit(sliders);
+                if (data == true)
+                {
+                    return RedirectToAction("Slider");
+
+                }
+                else
+                {
+                    return View(sliders);
+                }
+            }
+            return View(sliders);
+        }
+        #endregion
         public IActionResult About()
         {
             return View();
         }
+       
+        #region Courses
         public IActionResult Courses()
         {
             return View();
         }
+        public IActionResult AddCourses()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCourses(SliderViewModel sliders)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = slider.Add(sliders);
+                if (data == true)
+                {
+                    return RedirectToAction("Slider");
+
+                }
+                else
+                {
+                    return View(sliders);
+                }
+            }
+            return View(sliders);
+        }
+        [HttpPost]
+        public IActionResult DeleteCourses(int id)
+        {
+            var data = slider.Delete(id);
+            return Json(data);
+        }
+        public IActionResult UpdateCourses(int id)
+        {
+            var data = slider.GetById(id);
+            return View(data);
+        }
+        [HttpPost]
+        [ActionName("UpdateCourses")]
+        public IActionResult UpdateCourses(UpdateSliderViewModel sliders)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = slider.Edit(sliders);
+                if (data == true)
+                {
+                    return RedirectToAction("Slider");
+
+                }
+                else
+                {
+                    return View(sliders);
+                }
+            }
+            return View(sliders);
+        }
+        #endregion
     }
 }

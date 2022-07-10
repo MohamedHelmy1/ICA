@@ -61,7 +61,7 @@ namespace BLL.Servies
 
         }
 
-        public bool Edit(SliderViewModel slider)
+        public bool Edit(UpdateSliderViewModel slider)
         {
             try
             {
@@ -96,9 +96,9 @@ namespace BLL.Servies
             });
         }
 
-        public SliderViewModel GetById(int id)
+        public UpdateSliderViewModel GetById(int id)
         {
-            return db.Slider.Where(z=>z.Id==id).Select(x => new SliderViewModel
+            return db.Slider.Where(z=>z.Id==id).Select(x => new UpdateSliderViewModel
             {
                 Id = x.Id,
                 Name = x.Name,

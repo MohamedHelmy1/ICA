@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.ViewModel
 {
-    public class CoursesViewModel
+    public class UpdateCoursesViewModel
     {
         public int Id { get; set; }
         [Required]
@@ -16,8 +16,6 @@ namespace DAL.ViewModel
         [Required]
         public string Description { get; set; }
         public string Image { get; set; }
-        [Required]
         public IFormFile Images { get; set; }
-
     }
 }

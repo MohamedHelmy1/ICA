@@ -14,6 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using BLL.Helper;
 
 namespace UI
 {
@@ -39,7 +41,9 @@ namespace UI
             services.AddIdentity<AplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
                
                .AddDefaultTokenProviders();
+            services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
             services.AddScoped<ISliderRep, SliderRep>();
+            services.AddScoped<ICoursesRep, CoursesRep>();
 
         }
 

@@ -14,7 +14,7 @@ namespace BLL.Helper
         {
 
             // Get Directory
-            string FilePath = Directory.GetCurrentDirectory() + "/wwwroot/Files/" + FolderPath;
+            string FilePath = Directory.GetCurrentDirectory() + "/wwwroot/" + FolderPath;
 
             // Get File Name
             string FileName = Guid.NewGuid() + Path.GetFileName(PhotoUrl.FileName);
@@ -33,9 +33,9 @@ namespace BLL.Helper
 
         public static void RemoveFile(string FolderName, string RemovedFileName)
         {
-            if (File.Exists(Directory.GetCurrentDirectory() + "/wwwroot/Files/" + FolderName + RemovedFileName))
+            if (File.Exists(Directory.GetCurrentDirectory() + "/wwwroot/" + FolderName + RemovedFileName))
             {
-                File.Delete(Directory.GetCurrentDirectory() + "/wwwroot/Files/" + FolderName + RemovedFileName);
+                File.Delete(Directory.GetCurrentDirectory() + "/wwwroot/" + FolderName + RemovedFileName);
             }
 
         }
