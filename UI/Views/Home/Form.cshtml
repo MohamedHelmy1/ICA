@@ -1,8 +1,11 @@
-﻿
+﻿@model DAL.ViewModel.RegisterViewModel
 @{
     Layout = null;
 }
-
+@inject BLL.Interface.IAboutRep Active
+@{
+    var data = Active.GetActive();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,32 +46,55 @@
     <p><b>استمارة التسجيل -الماجستير- الدكتوراه - دبلوم (مهني)</b></p>
     
     <p>
-        الان عن بعد وبشهادة معتمدة ومصدقة من وزارة الخارجية المصرية وسفارة دولتك. <br>
- فرصة لمن يبحث عن التميز. <br><br>
- - باعتماد وتصديق كلا من :- <br>
- 1- توثيق السفارة السعودية ( متاح التوثيق من اي سفارة  ) <br>
- 2- توثيق وزارة الخارجية المصرية ( بختم النسر مع امكانية التصادق عليها من خارجية دولتكم ) <br>
- 3- تصديق مكتب التوثيقات والتصديقات ( كود تصديق خاص بكم ) <br>
-    </p>
+        @Html.Raw(@data.Name) </p>
 </article><br><br><br>
-
+@inject BLL.Interface.ICoursesRep course
     <form dir="rtl">
         <label>اسم الماجستير-الدكتوراه-الدبلوم( المراد الحصول عليه ) <span style="color:#ff0000">*</span></label><br>
-        <input type="text" required autofocus><br><br>
+        <select asp-for="CourseId" autofocus>
+            <option value="0">اختر الاسم</option>
+
+            @foreach (var item in course.GetAll())
+           {
+            <option value="@item.Id">@item.Name</option>
+               
+           }
+        </select>
+        <br>
+        <span asp-validation-for="CourseId" style="margin: 90px;"  class="text-danger"></span>
+        <br>
         <label>الاسم باللغة العربية <span style="color:#ff0000">*</span></label><br>
-        <input type="text" required autofocus><br><br>
+        <input asp-for="Name" type="text" required autofocus><br>
+        <span asp-validation-for="Name" style="margin: 90px;"  class="text-danger"></span>
+        <br>
+
         <label>رقم الواتس أب <span style="color:#ff0000">*</span></label><br>
-        <input type="text" required autofocus><br><br>
+        <input asp-for="phone" type="text" required autofocus><br>
+        <span asp-validation-for="phone" style="margin: 90px;"  class="text-danger"></span>
+        <br>
         <label>البريد الالكتروني<span style="color:#ff0000">*</span></label><br>
-        <input type="email" required autofocus><br><br>
+        <input asp-for="Email" type="email" required autofocus><br>
+        <span asp-validation-for="Email" style="margin: 90px;"  class="text-danger"></span>
+        <br>
         <label>الدولة <span style="color:#ff0000">*</span></label><br>
-        <input type="text" required autofocus><br><br>
+        <input asp-for="Countery" type="text" required autofocus><br>
+        <span asp-validation-for="Countery" style="margin: 90px;"  class="text-danger"></span>
+        <br>
         <label>كلمة المرور <span style="color:#ff0000">*</span></label><br>
-        <input type="password" required autofocus><br><br>
+        <input asp-for="Password" type="password" required autofocus><br>
+        <span asp-validation-for="Password" style="margin: 90px;"  class="text-danger"></span>
+        <br>
         <label>تأكيد كلمة المرور <span style="color:#ff0000">*</span></label><br>
-        <input type="password" required autofocus><br><br>
+        <input asp-for="ConfirmPassword" type="password" required autofocus><br>
+        <span asp-validation-for="ConfirmPassword" style="margin: 90px;"  class="text-danger"></span>
+        <br>
         <button type="submit">ارسال</button>
     </form>
     </main>
 </body>
 </html>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

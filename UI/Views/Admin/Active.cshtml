@@ -1,6 +1,6 @@
-﻿@model DAL.ViewModel.AboutViewModel
+﻿@model DAL.ViewModel.ActiveteCoursesViewModel
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Active";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -48,40 +48,17 @@
                         <div class="card-body">
                             <div class="row">
                      <div class="col-md-12">
-        <form asp-action="About" method="post">
+        <form asp-action="Active" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
        <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                 <input class="form-control" asp-for="name"></input>
-
-
-                <span asp-validation-for="name" class="text-danger"></span>
-            </div>
+               
             <div class="form-group">
-                <label asp-for="AboutUs" class="control-label"></label>
-                 <textarea  class="form-control" asp-for="AboutUs"></textarea>
+                <label asp-for="Name" class="control-label"></label>
+                 <textarea asp-for="Name"  class="jqte-test">hhhh</textarea>
 
-
-                <span asp-validation-for="AboutUs" class="text-danger"></span>
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="message" class="control-label"></label>
-                 <textarea asp-for="message"  class="jqte-test">hhhh</textarea>
-
-                <span asp-validation-for="message" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OurGoal" class="control-label"></label>
-                 <textarea asp-for="OurGoal"  class="jqte-test">jjjjjj</textarea>
-
-                <span asp-validation-for="OurGoal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WhyUs" class="control-label"></label>
-                 <textarea asp-for="WhyUs"  class="jqte-test"></textarea>
-
-                <span asp-validation-for="WhyUs" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -124,5 +101,6 @@
 		$('.jqte-test').jqte({"status" : jqteStatus})
 	});
 </script>
+
 
 

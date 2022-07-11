@@ -8,10 +8,16 @@ namespace UI.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private readonly ISliderRep slider;
+        private readonly ICoursesRep courses;
+        private readonly ICourseDetail courseDetail;
+        private readonly IAboutRep about;
 
-        public AdminController(ISliderRep slider)
+        public AdminController(ISliderRep slider,ICoursesRep courses,ICourseDetail courseDetail,IAboutRep about)
         {
             this.slider = slider;
+            this.courses = courses;
+            this.courseDetail = courseDetail;
+            this.about = about;
         }
         public IActionResult Home()
         {
@@ -75,11 +81,45 @@ namespace UI.Areas.Admin.Controllers
             return View(sliders);
         }
         #endregion
+        #region About and التوثيق
+       
+       
         public IActionResult About()
         {
-            return View();
+            var data = about.GetAbout();
+
+            return View(data);
         }
-       
+        [HttpPost]
+        public IActionResult About(AboutViewModel About)
+        {
+            var data=about.About(About);
+            if(data == true)
+            {
+                return RedirectToAction("Home");
+
+            }
+            return View(About);
+        }
+        //التوثيق فى نفس AboutRep
+        public IActionResult Active()
+        {
+            var data = about.GetActive();
+
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult Active(ActiveteCoursesViewModel activete)
+        {
+            var data = about.Active(activete);
+            if (data == true)
+            {
+                return RedirectToAction("Home");
+
+            }
+            return View(activete);
+        }
+        #endregion
         #region Courses
         public IActionResult Courses()
         {
@@ -90,53 +130,113 @@ namespace UI.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddCourses(SliderViewModel sliders)
+        public IActionResult AddCourses(CoursesViewModel course)
         {
             if (ModelState.IsValid)
             {
-                var data = slider.Add(sliders);
-                if (data == true)
+                var data = courses.Add(course);
+                if (data != 0)
                 {
-                    return RedirectToAction("Slider");
+                    return RedirectToAction("AddCoursesDetail", new { id = data});
 
                 }
                 else
                 {
-                    return View(sliders);
+                    return View(course);
                 }
             }
-            return View(sliders);
+            return View(course);
         }
         [HttpPost]
         public IActionResult DeleteCourses(int id)
         {
-            var data = slider.Delete(id);
+            var data = courses.Delete(id);
             return Json(data);
         }
         public IActionResult UpdateCourses(int id)
         {
-            var data = slider.GetById(id);
+            var data = courses.GetById(id);
             return View(data);
         }
         [HttpPost]
         [ActionName("UpdateCourses")]
-        public IActionResult UpdateCourses(UpdateSliderViewModel sliders)
+        public IActionResult UpdateCourses(UpdateCoursesViewModel course)
         {
             if (ModelState.IsValid)
             {
-                var data = slider.Edit(sliders);
+                var data = courses.Edit(course);
                 if (data == true)
                 {
-                    return RedirectToAction("Slider");
+                    return RedirectToAction("Courses");
 
                 }
                 else
                 {
-                    return View(sliders);
+                    return View(course);
                 }
             }
-            return View(sliders);
+            return View(course);
         }
         #endregion
+        #region Courses Detail
+       
+        public IActionResult AddCoursesDetail(int id)
+        {
+            ViewBag.id = id;
+            var data = courseDetail.GetById(id);
+            if (data != null)
+            {
+                return RedirectToAction("Courses");
+
+            }
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCoursesDetail(CoursesDetailViewModel coursesDetail)
+        {
+            if (ModelState.IsValid)
+            {
+                coursesDetail.FK_CourseId= coursesDetail.Id;
+                coursesDetail.Id = 0;
+                var data = courseDetail.Add(coursesDetail);
+                if (data == true)
+                {
+                    return RedirectToAction("Courses");
+
+                }
+                else
+                {
+                    return View(coursesDetail);
+                }
+            }
+            return View(coursesDetail);
+        }
+       
+        public IActionResult UpdateCoursesDetail(int id)
+        {
+            var data = courseDetail.GetById(id);
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult UpdateCoursesDetail(CoursesDetailViewModel coursesDetail)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = courseDetail.Edit(coursesDetail);
+                if (data == true)
+                {
+                    return RedirectToAction("Courses");
+
+                }
+                else
+                {
+                    return View(coursesDetail);
+                }
+            }
+            return View(coursesDetail);
+        }
+        #endregion
+        
     }
 }

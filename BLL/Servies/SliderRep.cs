@@ -47,8 +47,11 @@ namespace BLL.Servies
             try
             {
                 var data = db.Slider.Where(x => x.Id == id).FirstOrDefault();
+
                 db.Slider.Remove(data);
                 db.SaveChanges();
+                UploodImage.RemoveFile("Image",data.Image);
+
                 return true;
 
             }
@@ -70,7 +73,8 @@ namespace BLL.Servies
                 data.Description=slider.Description;
                 if (slider.Images != null)
                 {
-                    UploodImage.RemoveFile(data.Image, "Image");
+                    UploodImage.RemoveFile("Image", data.Image);
+
                     data.Image = UploodImage.SaveFile(slider.Images, "Image");
                 }
                 db.SaveChanges();

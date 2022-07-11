@@ -18,7 +18,21 @@ namespace BLL.Helper
             CreateMap<CoursesViewModel, Courses>();
             CreateMap<UpdateCoursesViewModel, Courses>();
             CreateMap<Courses, UpdateCoursesViewModel>();
+            //.ForMember(x => x.Image, op => op.Ignore());
+
             #endregion
+            #region courses Detail
+            CreateMap<CoursesDetail, CoursesDetailViewModel>();
+            CreateMap<CoursesDetailViewModel, CoursesDetail>();
+
+
+            #endregion
+            #region About
+            CreateMap<About, AboutViewModel>();
+            CreateMap<AboutViewModel, About>();
+            #endregion
+          
+
 
         }
     }

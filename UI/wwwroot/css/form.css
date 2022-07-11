@@ -10,6 +10,14 @@ input{
     border-width: 1px;
     border-color: black;
 }
+select {
+    border-radius: 20px;
+    width: 500px;
+    border-width: 1px;
+    border-color: black;
+    height: 35px;
+    text-align: center;
+}
 form button{
     width: 100px;
     color: #007f88;

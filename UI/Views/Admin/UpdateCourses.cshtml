@@ -1,14 +1,11 @@
-﻿@model DAL.ViewModel.AboutViewModel
+﻿@model DAL.ViewModel.UpdateCoursesViewModel
+
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "UpdateCourses";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<link type="text/css" rel="stylesheet" href="~/css/jquery-te-1.4.0.css">
-
-
-
-<style>
+<<style>
     label{
             color: cadetblue;
     }
@@ -28,7 +25,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="/Admin/Index">Dashboard</a></li>
-                                <li class="active"> About Us </li>
+                                <li class="active"> Courses </li>
                             </ol>
                         </div>
                     </div>
@@ -43,51 +40,39 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header" style=" display: flex; justify-content: space-between;">
-                            <strong class="card-title">Update About Us</strong>
+                            <strong class="card-title">Update Courses</strong>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                     <div class="col-md-12">
-        <form asp-action="About" method="post">
+                                <div class="col-md-6">
+          <form method="post" asp-action="UpdateCourses"   enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-       <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                 <input class="form-control" asp-for="name"></input>
-
-
-                <span asp-validation-for="name" class="text-danger"></span>
+           
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Courses Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Courses Name"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AboutUs" class="control-label"></label>
-                 <textarea  class="form-control" asp-for="AboutUs"></textarea>
-
-
-                <span asp-validation-for="AboutUs" class="text-danger"></span>
+                <label asp-for="Description" class="control-label"> Courses Description</label>
+                <input asp-for="Description" class="form-control"placeholder="Courses Description" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="message" class="control-label"></label>
-                 <textarea asp-for="message"  class="jqte-test">hhhh</textarea>
-
-                <span asp-validation-for="message" class="text-danger"></span>
+                <label asp-for="Images" class="control-label">Image</label>
+                <input type="file" asp-for="Images" class="form-control" />
+                <span asp-validation-for="Images" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OurGoal" class="control-label"></label>
-                 <textarea asp-for="OurGoal"  class="jqte-test">jjjjjj</textarea>
-
-                <span asp-validation-for="OurGoal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WhyUs" class="control-label"></label>
-                 <textarea asp-for="WhyUs"  class="jqte-test"></textarea>
-
-                <span asp-validation-for="WhyUs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-    </div>
+                                </div>
+                                  <div class="col-md-6">
+                                      <img style="margin-top: 60px;" src="~/Image/@Model.Image">
                             </div>
+                            </div>
+                          
 
                             <div>
                                 <a asp-action="Index">Back to List</a>
@@ -109,20 +94,6 @@
 
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="~/css/jquery-te-1.4.0.min.js" charset="utf-8"></script>
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-<script>
-	$('.jqte-test').jqte();
-	
-	// settings of status
-	var jqteStatus = true;
-	$(".status").click(function()
-	{
-		jqteStatus = jqteStatus ? false : true;
-		$('.jqte-test').jqte({"status" : jqteStatus})
-	});
-</script>
-
-

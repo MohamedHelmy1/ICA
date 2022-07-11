@@ -43,7 +43,9 @@ namespace UI
                .AddDefaultTokenProviders();
             services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
             services.AddScoped<ISliderRep, SliderRep>();
-            services.AddScoped<ICoursesRep, CoursesRep>();
+            services.AddScoped<ICoursesRep, CoursesRep>(); 
+                services.AddScoped<ICourseDetail, CourseDetail>();
+            services.AddScoped<IAboutRep, AboutRep>();
 
         }
 

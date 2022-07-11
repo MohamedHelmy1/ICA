@@ -1,8 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     var nunber = 1;
+    var courseNumber = 1;
+
 }
 @inject BLL.Interface.ISliderRep slider
+@inject BLL.Interface.ICoursesRep course
 @{
     var data = slider.GetAll();
 }
@@ -92,16 +95,24 @@
         </article>
 <br><br>
         <center><article>
-
-          <div class="card" style="width: 18rem;">
-            <img src="~/pics/m.jpg" class="card-img-top">
+            @foreach (var item in course.GetAll())
+           {
+               if (courseNumber==1)
+               {
+                     <div class="card" style="width: 18rem;">
+            <img src="~/Image/@item.Image" class="card-img-top">
             <div class="card-body">
-              <h5 class="card-title">Course 1</h5>
-              <p class="card-text">ماجستير التدريب والإرشاد النفس<br>
-                بتوثيق الخارجية المصرية ومكتب التصديقات وختم النسر</p>
+              <h5 class="card-title">Course @courseNumber</h5>
+              <p class="card-text">@item.Name<br>
+               @item.Description</p>
               <a id="get" target="_blank" href="/Home/courses" class="btn">Get it now</a>
             </div>
-          </div>
+                        </div>
+                    }
+                    courseNumber++;
+
+           }
+         
           
         </article></center>
 <br><br>

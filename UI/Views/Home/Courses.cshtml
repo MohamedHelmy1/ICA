@@ -1,8 +1,9 @@
 ﻿
 @{
     Layout = null;
+    int CourseNumber = 1;
 }
-
+@inject BLL.Interface.ICoursesRep course
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,45 +35,23 @@
 
     <article>
       <center>
-
-      <div class="card float-start" style="width: 18rem;">
-        <img src="~/pics/m.jpg" class="card-img-top" alt="...">
+          @foreach (var item in course.GetAll())
+         {
+             <div class="card float-start" style="width: 18rem;">
+        <img src="~/Image/@item.Image" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Course 1</h5>
-          <p class="card-text">ماجستير التدريب والإرشاد النفس<br>
-            بتوثيق الخارجية المصرية ومكتب التصديقات وختم النسر
+          <h5 class="card-title">Course @CourseNumber</h5>
+          <p class="card-text">@item.Name<br>
+            @item.Description
           </p>
-          <a target="_blank" href="/Hiome/CourseDetail" class="btn">Get it now</a>
+          <a target="_blank" asp-action="CourseDetail" asp-controller="Home" asp-route-id=@item.Id class="btn">Get it now</a>
         </div>
       </div>
+      CourseNumber++;
+         }
       
-      <div class="card float-start" style="width: 18rem;">
-        <img src="pics/m.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Course 2</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn">Get it now</a>
-        </div>
-      </div>
-
-      <div class="card float-start" style="width: 18rem;">
-        <img src="pics/m.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Course 3</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn">Get it now</a>
-        </div>
-      </div>
-
-      <div class="card float-start" style="width: 18rem;">
-        <img src="pics/m.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Course 4</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn">Get it now</a>
-        </div>
-      </div>
-
+      
+    
     </center>
     </article>
 

@@ -1,6 +1,7 @@
-﻿@model DAL.ViewModel.AboutViewModel
+﻿@model DAL.ViewModel.CoursesDetailViewModel
+
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "AddCoursesDetail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -28,7 +29,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="/Admin/Index">Dashboard</a></li>
-                                <li class="active"> About Us </li>
+                                <li class="active"> Courses </li>
                             </ol>
                         </div>
                     </div>
@@ -43,44 +44,38 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header" style=" display: flex; justify-content: space-between;">
-                            <strong class="card-title">Update About Us</strong>
+                            <strong class="card-title">Add Course Detail</strong>
                         </div>
                         <div class="card-body">
                             <div class="row">
                      <div class="col-md-12">
-        <form asp-action="About" method="post">
+        <form asp-action="AddCoursesDetail" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-       <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                 <input class="form-control" asp-for="name"></input>
+      
+      <input asp-for="FK_CourseId" type="hidden" value="@ViewBag.id"/>
+            <div class="form-group">
+                <label asp-for="Information" class="control-label"></label>
+                 <textarea asp-for="Information" class="jqte-test"></textarea>
 
-
-                <span asp-validation-for="name" class="text-danger"></span>
+                <span asp-validation-for="Information" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AboutUs" class="control-label"></label>
-                 <textarea  class="form-control" asp-for="AboutUs"></textarea>
+                <label asp-for="Stady" class="control-label"></label>
+                 <textarea asp-for="Stady"  class="jqte-test">hhhh</textarea>
 
-
-                <span asp-validation-for="AboutUs" class="text-danger"></span>
+                <span asp-validation-for="Stady" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="message" class="control-label"></label>
-                 <textarea asp-for="message"  class="jqte-test">hhhh</textarea>
+                <label asp-for="Course" class="control-label"></label>
+                 <textarea asp-for="Course"  class="jqte-test">jjjjjj</textarea>
 
-                <span asp-validation-for="message" class="text-danger"></span>
+                <span asp-validation-for="Course" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OurGoal" class="control-label"></label>
-                 <textarea asp-for="OurGoal"  class="jqte-test">jjjjjj</textarea>
+                <label asp-for="RequierdDocument" class="control-label"></label>
+                 <textarea asp-for="RequierdDocument"  class="jqte-test"></textarea>
 
-                <span asp-validation-for="OurGoal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WhyUs" class="control-label"></label>
-                 <textarea asp-for="WhyUs"  class="jqte-test"></textarea>
-
-                <span asp-validation-for="WhyUs" class="text-danger"></span>
+                <span asp-validation-for="RequierdDocument" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

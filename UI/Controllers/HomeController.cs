@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BLL.Interface;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICourseDetail courseDetail;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,ICourseDetail courseDetail)
         {
             _logger = logger;
+            this.courseDetail = courseDetail;
         }
 
         public IActionResult Index()
@@ -34,9 +37,11 @@ namespace UI.Controllers
         {
             return View();
         }
-        public IActionResult CourseDetail()
+        public IActionResult CourseDetail(int id)
         {
-            return View();
+            ViewBag.id = id;
+            var data=courseDetail.GetById(id);
+            return View(data);
         }
         public IActionResult Form()
         {
