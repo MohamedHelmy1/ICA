@@ -33,23 +33,43 @@
 
   <main>
     <form asp-action="Login">
+
 <div id="login">
+            
+        <div style="text-align:center;" asp-validation-summary="ModelOnly" class="col-sm-10 text-danger"></div>
+
     <div class="mb-3 row">
         <label for="staticEmail" class="col-sm-2 col-form-label text-white">Email:</label>
         <div class="col-sm-10">
-          <input type="email" asp-for="Email" class="form-control-plaintext text-white" id="staticEmail" value="email@example.com">
+          <input type="email" asp-for="Email" class="form-control-plaintext text-white" id="staticEmail" placeholder="email@example.com">
 
         </div>
+        <br />
+       <div class="mb-3 row">
+        <div col-sm-10>
+        <label for="staticEmail" class="col-sm-2 col-form-label text-white"></label>
 
+                <span asp-validation-for="Email" class="text-danger"></span>
+          </div>
+        </div>
       </div>
       <div class="mb-3 row">
         <label for="inputPassword" class="col-sm-2 col-form-label text-white">Password:</label>
         <div class="col-sm-10">
-          <input type="password" asp-for="Passwored" class="form-control" id="inputPassword" value="Password">
+          <input type="password" asp-for="Passwored" class="form-control" id="inputPassword" placeholder="Password">
 
         </div>
         <br><br><br>
         <button id="submitlgn" type="submit">Login</button>
+      </div>
+       <br />
+       <div class="mb-3 row">
+        <div col-sm-10>
+        <label for="staticEmail" class="col-sm-2 col-form-label text-white"></label>
+
+                <span asp-validation-for="Passwored" class="text-danger"></span>
+          </div>
+        </div>
       </div></form>
       <br><br><br><br><br><br><br><br><br></div>
   </main></center>

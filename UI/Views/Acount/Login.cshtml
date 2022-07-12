@@ -1,0 +1,62 @@
+﻿@model DAL.ViewModel.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="~/css/admin.css">
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="icon" href="~/pics/logo.jpeg">
+    <!-- Bootstrap Css-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- First font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Smooch&display=swap" rel="stylesheet">
+    <!-- Body font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+<header>
+    <center><h1 id="ica">International Concept Academy</h1> <img id="icalogo" src="~/pics/logo.jpeg"></center>
+</header>
+
+<main>
+
+    <article><form asp-action="Login">
+        <div class="card text-center">
+            <div class="card-header">
+              Welcome
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">International Concept Academy</h5><br>
+              <p class="card-text">Welcome To International Concept Academy Administrator Login</p>
+              <label>Email: &nbsp;</label><input asp-for="Email" id="emaillgn" type="email" placeholder="email@example.com"><br>
+               <span asp-validation-for="Email" class="text-danger"></span>
+
+              <br>
+              <label id="lblp">Password: &nbsp;</label><input asp-for="Passwored" id="passlgn"><br>
+        @*<span asp-validation-for="Password" class="text-danger"></span>*@
+
+              <br>
+              <button id="sublgn" type="submit">Login</button>
+            </div>
+            
+          </div></form>
+    </article>
+
+</main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

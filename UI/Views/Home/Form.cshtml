@@ -45,6 +45,13 @@
 #save{
         margin: 30px 190px;
 }
+#courselog button {
+    width: 100px;
+    color: #007f88;
+    background-color: white;
+    border-radius: 20px 5px;
+    font-size: 30px;
+}
 
 </style>
 </head>
@@ -65,9 +72,11 @@
 @inject BLL.Interface.ICoursesRep course
          @if (User.Identity.IsAuthenticated)
          {
-             <form dir="rtl">
+             <div id="courselog" dir="rtl">
+                 
               <label>اسم الماجستير-الدكتوراه-الدبلوم( المراد الحصول عليه ) <span style="color:#ff0000">*</span></label><br>
-        <select asp-for="CourseId" autofocus>
+        <br>
+              <select id="cou" asp-for="CourseId" autofocus>
             <option value="0">اختر الاسم</option>
 
             @foreach (var item in course.GetAll())
@@ -77,8 +86,15 @@
            }
         </select>
         <br>
-        <button id="save" >تسجيل</button>
-       </form>
+        <span id="sp1" style="margin: 90px;"  class="text-danger"> يجب الاختيار</span>
+
+        <br>
+                @if (User.IsInRole("User"))
+                {
+                    <button id="save" >تسجيل</button>
+                }
+                
+       </div>
          }
         else
         {
@@ -135,3 +151,53 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    $("#sp1").hide();
+
+   $("#save").click(function(){
+       save();
+   })
+});
+function save(){
+    var courseid=$("#cou").val();
+    if(courseid !=0){
+    $("#sp1").hide();
+
+        $.ajax({
+
+                        type: "POST",
+                        url: "/Home/AddUserCourse",
+                        data: {
+                            id: courseid,
+
+                        },
+
+                        success: function (res) {
+                            if(res==true){
+                                swal("success!", "تم التسجيل بنجاح سيتم التواصل معك ", "success").then(function () {
+                window.location = "/Home/index"
+            });
+                            
+
+                            }
+                            else{
+                                swal("error!", "تم التسجيل من قبل  ", "success").then(function () {
+                window.location = "/Home/index"
+            });
+                            }
+                            
+
+                        }
+
+                    });
+    }
+    else{
+    $("#sp1").show();
+
+    }
+     
+}
+</script>

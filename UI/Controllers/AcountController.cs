@@ -5,8 +5,8 @@ namespace UI.Controllers
 {
     public class AcountController : Controller
     {
-        [HttpPost]
-        public IActionResult Regsister(RegisterViewModel model)
+        
+        public IActionResult Login()
         {
             return View();
         }

@@ -1,10 +1,12 @@
 ﻿using BLL.Interface;
 using DAL.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Areas.Admin.Controllers
 {
-   
+    [Authorize(Roles ="Admin")]
+
     public class AdminController : Controller
     {
         private readonly ISliderRep slider;

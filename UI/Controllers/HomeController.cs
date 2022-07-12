@@ -21,14 +21,16 @@ namespace UI.Controllers
         private readonly UserManager<AplicationUser> userManager;
         private readonly SignInManager<AplicationUser> signInManager;
         private readonly IUserCourseRep userCourseRep;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public HomeController(ILogger<HomeController> logger,ICourseDetail courseDetail,UserManager<AplicationUser> userManager,SignInManager<AplicationUser> signInManager, IUserCourseRep userCourseRep)
+        public HomeController(ILogger<HomeController> logger,ICourseDetail courseDetail,UserManager<AplicationUser> userManager,SignInManager<AplicationUser> signInManager, IUserCourseRep userCourseRep,RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
             this.courseDetail = courseDetail;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.userCourseRep = userCourseRep;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -65,10 +67,11 @@ namespace UI.Controllers
             {
                 var user = new AplicationUser()
                 {
-                    UserName = model.Name,
+                    UserName = model.Email,
                     Email = model.Email,
                     Cuntery = model.Countery,
-                    PhoneNumber = model.phone
+                    PhoneNumber = model.phone,
+                    NameOfUser = model.Name
                 };
                var result=await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -76,6 +79,16 @@ namespace UI.Controllers
                     await signInManager.SignInAsync(user, true);
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var d = userCourseRep.AddCouse(model.CourseId, userId);
+                    var TestRole = await roleManager.RoleExistsAsync("User");
+                    var user2 = await userManager.FindByEmailAsync(model.Email);
+
+                    if (!TestRole)
+                    {
+                        var role = new IdentityRole { Name = "User" };
+                        await roleManager.CreateAsync(role);
+                    }
+                    // put LabDoctor in LabDoctor role
+                    var result2 = await userManager.AddToRoleAsync(user2, "User");
                     return RedirectToAction("Index");
                 }
                 else
@@ -100,11 +113,28 @@ namespace UI.Controllers
         {
             if (ModelState.IsValid)
             {
-               var result=await signInManager.PasswordSignInAsync(model.Email, model.Passwored, true, true);
-                if (result.Succeeded)
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if(user != null)
                 {
-                  return  RedirectToAction("Index");
+                        var UserRole = await userManager.GetRolesAsync(user);
+                        if (UserRole.Count != 0)
+                        {
+                            if (UserRole[0] == "User")
+                            {
+                                var result = await signInManager.PasswordSignInAsync(model.Email, model.Passwored, true, true);
+                                if (result.Succeeded)
+                                {
+                                    return RedirectToAction("Index");
+                                }
+
+                            }
+                        }
+
+                    
                 }
+                
+               
+                ModelState.AddModelError("", "Email Or Passwored Wrong");
             }
             return View(model);
         }
@@ -115,7 +145,13 @@ namespace UI.Controllers
             return RedirectToAction("Index");
         }
         #endregion
-
+        [HttpPost]
+        public IActionResult AddUserCourse(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var d = userCourseRep.AddCouse(id, userId);
+            return Json(d);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

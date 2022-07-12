@@ -38,7 +38,15 @@ namespace UI
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddIdentity<AplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<AplicationUser, IdentityRole>(options => {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequiredUniqueChars = 0;
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
                
                .AddDefaultTokenProviders();
             services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));

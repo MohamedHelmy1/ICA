@@ -10,5 +10,7 @@ namespace DAL.Entities
     public class AplicationUser:IdentityUser
     {
         public string Cuntery { get; set; }
+        public string NameOfUser{ get; set; }
+
     }
 }
