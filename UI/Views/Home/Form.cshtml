@@ -33,6 +33,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="~/css/courses.css"> 
 <link rel="stylesheet" href="~/css/form.css">
+<style>
+    select {
+    border-radius: 20px;
+    width: 500px;
+    border-width: 1px;
+    border-color: black;
+    height: 35px;
+    text-align: center;
+}
+#save{
+        margin: 30px 190px;
+}
+
+</style>
 </head>
 
 <body>
@@ -49,7 +63,28 @@
         @Html.Raw(@data.Name) </p>
 </article><br><br><br>
 @inject BLL.Interface.ICoursesRep course
-    <form dir="rtl">
+         @if (User.Identity.IsAuthenticated)
+         {
+             <form dir="rtl">
+              <label>اسم الماجستير-الدكتوراه-الدبلوم( المراد الحصول عليه ) <span style="color:#ff0000">*</span></label><br>
+        <select asp-for="CourseId" autofocus>
+            <option value="0">اختر الاسم</option>
+
+            @foreach (var item in course.GetAll())
+           {
+            <option value="@item.Id">@item.Name</option>
+               
+           }
+        </select>
+        <br>
+        <button id="save" >تسجيل</button>
+       </form>
+         }
+        else
+        {
+             <form dir="rtl" asp-action="Form">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
         <label>اسم الماجستير-الدكتوراه-الدبلوم( المراد الحصول عليه ) <span style="color:#ff0000">*</span></label><br>
         <select asp-for="CourseId" autofocus>
             <option value="0">اختر الاسم</option>
@@ -64,7 +99,7 @@
         <span asp-validation-for="CourseId" style="margin: 90px;"  class="text-danger"></span>
         <br>
         <label>الاسم باللغة العربية <span style="color:#ff0000">*</span></label><br>
-        <input asp-for="Name" type="text" required autofocus><br>
+        <input asp-for="Name" type="text"  autofocus><br>
         <span asp-validation-for="Name" style="margin: 90px;"  class="text-danger"></span>
         <br>
 
@@ -73,23 +108,25 @@
         <span asp-validation-for="phone" style="margin: 90px;"  class="text-danger"></span>
         <br>
         <label>البريد الالكتروني<span style="color:#ff0000">*</span></label><br>
-        <input asp-for="Email" type="email" required autofocus><br>
+        <input asp-for="Email" type="email" autofocus><br>
         <span asp-validation-for="Email" style="margin: 90px;"  class="text-danger"></span>
         <br>
         <label>الدولة <span style="color:#ff0000">*</span></label><br>
-        <input asp-for="Countery" type="text" required autofocus><br>
+        <input asp-for="Countery" type="text"  autofocus><br>
         <span asp-validation-for="Countery" style="margin: 90px;"  class="text-danger"></span>
         <br>
         <label>كلمة المرور <span style="color:#ff0000">*</span></label><br>
-        <input asp-for="Password" type="password" required autofocus><br>
+        <input asp-for="Password" type="password"  autofocus><br>
         <span asp-validation-for="Password" style="margin: 90px;"  class="text-danger"></span>
         <br>
         <label>تأكيد كلمة المرور <span style="color:#ff0000">*</span></label><br>
-        <input asp-for="ConfirmPassword" type="password" required autofocus><br>
+        <input asp-for="ConfirmPassword" type="password"  autofocus><br>
         <span asp-validation-for="ConfirmPassword" style="margin: 90px;"  class="text-danger"></span>
         <br>
         <button type="submit">ارسال</button>
     </form>
+        }
+       
     </main>
 </body>
 </html>

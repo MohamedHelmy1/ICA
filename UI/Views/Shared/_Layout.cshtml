@@ -26,15 +26,31 @@
 <li class="nav-item">
 <a id="about" class="nav-link active" target="_blank" href="/Home/About">About Us</a>
 </li>
-<div class="dropdown">
-<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                     <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+@User.Identity.Name
+</a>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+<li><a class="dropdown-item" target="_blank" href="/Home/LoginOut">Log Out</a></li>
+</ul>
+</div>
+                }
+                else
+                {
+                     <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 Sign In
 </a>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-<li><a class="dropdown-item" target="_blank" href="login.html">Login</a></li>
+<li><a class="dropdown-item" target="_blank" href="/Home/Login">Login</a></li>
 <li><a class="dropdown-item" target="_blank" href="/Home/courses">Sign Up</a></li>
 </ul>
 </div>
+                }
+               
 </ul>
 
     </header>

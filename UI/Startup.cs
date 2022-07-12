@@ -46,6 +46,9 @@ namespace UI
             services.AddScoped<ICoursesRep, CoursesRep>(); 
                 services.AddScoped<ICourseDetail, CourseDetail>();
             services.AddScoped<IAboutRep, AboutRep>();
+            services.AddScoped<IUserCourseRep, UserCourseRep>();
+
+            
 
         }
 
