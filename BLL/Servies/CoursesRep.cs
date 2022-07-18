@@ -37,6 +37,13 @@ namespace BLL.Servies
 
         }
 
+        public int count()
+        {
+            return db.Courses.Count();
+          
+
+        }
+
         public bool Delete(int id)
         {
             try
@@ -74,6 +81,21 @@ namespace BLL.Servies
             return true;
         }
 
+        public bool EditLink(int id, string link)
+        {
+            var data = db.Courses.Where(x => x.Id == id).FirstOrDefault();
+            data.Link=link;
+            db.SaveChanges();
+            return true;
+        }
+        public bool RemoveLink(int id)
+        {
+            var data = db.Courses.Where(x => x.Id == id).FirstOrDefault();
+            data.Link = null;
+            db.SaveChanges();
+            return true;
+        }
+
         public IQueryable<CoursesViewModel> GetAll()
         {
             return db.Courses.Where(x=>x.Delete==false).ProjectTo<CoursesViewModel>(mapper.ConfigurationProvider);
@@ -87,5 +109,6 @@ namespace BLL.Servies
             return data1;
 
         }
+       
     }
 }

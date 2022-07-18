@@ -1,0 +1,32 @@
+#ica,#footer{
+    font-family: 'Smooch', cursive;
+    color: #007f88;
+    width: 100%;
+    background-color: black;
+}
+#icalogo{
+    height: 100px;
+    width: 100px;
+}
+header{
+    font-family: 'Lobster', cursive;
+}
+main{
+    background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #007f88 50%);
+}
+#mycourses{
+    font-family: 'Smooch', cursive;
+    color: #007f88;
+    background-color: black;
+}
+#get{
+    color: white;
+    background-color: #007f88;
+    width: 70%;
+    margin: 10px;
+    border-radius: 20px;
+}
+#cards{
+    padding: 20px;
+}

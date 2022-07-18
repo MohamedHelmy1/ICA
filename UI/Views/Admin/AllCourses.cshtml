@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewData["Title"] = "AllCourses";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@inject BLL.Interface.ICoursesRep course
+<style>
+    label{
+            color: cadetblue;
+    }
+</style>
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-inner">
+            <div class="row m-0">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="/Admin/Index">Dashboard</a></li>
+                                <li class="active"> Courses </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style=" display: flex; justify-content: space-between;">
+                            <strong class="card-title">All Courses </strong>
+                        </div>
+                       <div class="row">
+                          
+                               @foreach (var item in course.GetAll())
+                              {
+                                   <div class="col-md-4">
+                                  <div class="card" style="width: 18rem;">
+  <img style="    height: 260px;" src="~/Image/@item.Image" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">@item.Name</h5>
+    <p class="card-text">@item.Description</p>
+                                        @if (item.Link==null||item.Link=="")
+                                        {
+                                            <a href="/Admin/AddCoursesTime?id=@item.Id" class="btn btn-primary">Add Course Link Or Course Time</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@item.Link" class="btn btn-primary">Start Course</a>
+                                            <a onclick="EndCourse(@item.Id)" class="btn btn-denger">End Course</a>
+
+                                            
+                                        }
+
+  </div>
+</div>
+ </div>
+                              }
+                               
+                          
+
+                          
+
+
+                       </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    
+function EndCourse(id) {
+    
+    
+         swal({
+            title: `Are you sure you want to End this Course?`,
+            text: "If you delete this, it will be gone forever.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/Admin/DeleteCoursesLink",
+                        data: {
+                            id: id,
+
+                        },
+
+                        success: function (res) {
+
+                            swal("Ennd!", "Your imaginary file has been archived.", "success");
+                            location.reload();
+
+                        }
+
+                    });
+                }
+            });
+    }
+</script>
+ 
+

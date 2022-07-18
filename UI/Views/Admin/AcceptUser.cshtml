@@ -1,0 +1,162 @@
+﻿
+
+
+@{
+    ViewData["Title"] = "AcceptUser";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int Number = 1;
+}
+@inject BLL.Interface.IUserCourseRep course
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body" id="Data" style="border:none;">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" style="margin:auto">Close</button>
+        </div>
+      </div>
+      
+    </div>
+    </div>
+
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-inner">
+            <div class="row m-0">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="/Admin/Index">Dashboard</a></li>
+                                <li class="active"> Courses </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style=" display: flex; justify-content: space-between;">
+                            <strong class="card-title">Courses Table</strong>
+                           
+                        </div>
+                        <div class="card-body">
+                            <table id="tblSlider"  class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>#</th>
+                                        <th>User Name</th>
+                                       <th>CourseName</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var   item in  await course.GetAllCoursetoAdminAcsept())
+                                   {
+                                       <tr>
+                                        
+                                        <th>@Number</th>
+                                        <th>@item.UserName</th>
+                                        <th>@item.CourseName</th>
+
+                                       
+                                        <th> <div class="row @*w-75 m-aito*@">
+                           
+                            <a onclick="Acept(@item.id)" class="col-4 btn delete m-0 p-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Accept">
+                                <i style="color: green;" class="fa-solid fa fa-check"></i>
+                            </a>
+                          <a onclick="NotAcept('@item.id')"class="col-4 btn delete m-0 p-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Refuse" > 
+                              <i style="color:red; font-size:large;" class="fa-solid fa fa-trash"></i>
+                              </a > 
+           
+                        </div></th>
+                                    </tr>
+                                    Number++;
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+
+
+<script src="~/js/jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    $('#tblSlider').DataTable();
+});
+
+function Acept(id) {
+         $.ajax({
+
+                        type: "POST",
+                        url: "/Admin/AcceptCourses",
+                        data: {
+                            id: id,
+
+                        },
+
+                        success: function (res) {
+
+                            swal("Accept!", "Your imaginary file has been archived.", "success");
+                            location.reload();
+
+                        }
+
+                    });
+    }
+ function NotAcept(id) {
+        swal({
+            title: `Are you sure you want to Refuse this User?`,
+            text: "If you Refuse this, it will be gone forever.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/Admin/NotAcceptCourses",
+                        data: {
+                            id: id,
+
+                        },
+
+                        success: function (res) {
+
+                            swal("Deleted!", "Your imaginary file has been archived.", "success");
+                            location.reload();
+
+                        }
+
+                    });
+                }
+            });
+    }
+
+</script>
+

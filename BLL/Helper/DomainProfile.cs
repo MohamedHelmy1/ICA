@@ -31,7 +31,8 @@ namespace BLL.Helper
             CreateMap<About, AboutViewModel>();
             CreateMap<AboutViewModel, About>();
             #endregion
-          
+            
+
 
 
         }

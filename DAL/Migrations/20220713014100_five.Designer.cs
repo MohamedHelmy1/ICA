@@ -4,14 +4,16 @@ using DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220713014100_five")]
+    partial class five
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,29 +134,6 @@ namespace DAL.Migrations
                     b.ToTable("Users", "security");
                 });
 
-            modelBuilder.Entity("DAL.Entities.CourseTime", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Day")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FK_CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Time")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FK_CourseId");
-
-                    b.ToTable("Courset");
-                });
-
             modelBuilder.Entity("DAL.Entities.Courses", b =>
                 {
                     b.Property<int>("Id")
@@ -169,9 +148,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -248,8 +224,8 @@ namespace DAL.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("state")
-                        .HasColumnType("int");
+                    b.Property<string>("state")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
@@ -389,17 +365,6 @@ namespace DAL.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens", "security");
-                });
-
-            modelBuilder.Entity("DAL.Entities.CourseTime", b =>
-                {
-                    b.HasOne("DAL.Entities.Courses", "Courses")
-                        .WithMany()
-                        .HasForeignKey("FK_CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("DAL.Entities.CoursesDetail", b =>

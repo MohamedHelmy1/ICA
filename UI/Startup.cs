@@ -48,7 +48,8 @@ namespace UI
                 options.Password.RequiredUniqueChars = 0;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
                
-               .AddDefaultTokenProviders();
+                       .AddTokenProvider<DataProtectorTokenProvider<AplicationUser>>(TokenOptions.DefaultProvider);
+
             services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
             services.AddScoped<ISliderRep, SliderRep>();
             services.AddScoped<ICoursesRep, CoursesRep>(); 
@@ -56,7 +57,10 @@ namespace UI
             services.AddScoped<IAboutRep, AboutRep>();
             services.AddScoped<IUserCourseRep, UserCourseRep>();
 
-            
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+            });
 
         }
 
@@ -77,9 +81,10 @@ namespace UI
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
+           
             app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -13,7 +13,10 @@ namespace BLL.Interface
         bool Edit(UpdateCoursesViewModel Courses);
         IQueryable<CoursesViewModel> GetAll();
         UpdateCoursesViewModel GetById(int id);
-
+        int count();
         bool Delete(int id);
+        bool EditLink(int id,string link);
+        bool RemoveLink(int id);
+
     }
 }

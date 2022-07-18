@@ -105,21 +105,20 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/Case">Case</a></li>
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/GraphicsCard">Graphics Card</a></li>
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/Hdd">HDD</a></li>
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/MotherBoard">MotherBoard</a></li>
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/PowerSupply">Power Supply</a></li>
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/Processor">Processor</a></li>
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/Ram">Ram</a></li>
-                            <li><i class="fa fa-table"></i><a href="/Admin/Admin/Ssd">SSD</a></li>
+                            <li><i class="fa fa-table"></i><a href="/Admin/Home">Home</a></li>
+                            <li><i class="fa fa-table"></i><a href="/Admin/courses">courses</a></li>
+
+                            <li><i class="fa fa-table"></i><a href="/Admin/Slider">Slider</a></li>
+                            <li><i class="fa fa-table"></i><a href="/Admin/About">About</a></li>
+                            <li><i class="fa fa-table"></i><a href="/Admin/Active">التوثيق</a></li>
+                      
                         </ul>
                     </li>
-                    <li>
-                        <a href="/Admin/Admin/Sales"> <i class="menu-icon fa fa-th"></i>Sales</a>
+                   <li>
+                        <a href="/Admin/AllCourses"> <i class="menu-icon fa fa-th"></i>All Courses</a>
                     </li>
 
-                    <li class="menu-title">Users</li><!-- /.menu-title -->
+                 @*    <li class="menu-title">Users</li><!-- /.menu-title -->
 
                     <li>
                         <a href="/Admin/Admin/Users"> <i class="menu-icon fa fa-user"></i>Users </a>
@@ -135,9 +134,9 @@
                     </li>
                     <li>
                         <a href="/Admin/Admin/Settings"> <i class="menu-icon fa fa-cog"></i>Settings </a>
-                    </li>
+                    </li>*@
                     <li>
-                        <a href="/Admin/Admin/LogOut"> <i class="menu-icon fa fa-power-off"></i>Logout </a>
+                        <a href="/Home/LoginOut"> <i class="menu-icon fa fa-power-off"></i>Logout </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -160,7 +159,7 @@
                     <div class="header-left">
 
                         <div class="dropdown for-message">
-                            <button onclick="location.href='/Admin/Admin/AdminChat'" class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button onclick="" class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
                                 <span id="messagescounter" hidden="hidden" class="circleTop">0</span>
                             </button>
@@ -175,7 +174,7 @@
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" id="adminName"><i class="fa fa-user"></i></a>
 
-                            <a class="nav-link" href="/Admin/Admin/LogOut"><i class="fa fa-power-off"></i>Logout</a>
+                            <a class="nav-link" href="/Home/LoginOut"><i class="fa fa-power-off"></i>Logout</a>
                         </div>
                     </div>
                 </div>

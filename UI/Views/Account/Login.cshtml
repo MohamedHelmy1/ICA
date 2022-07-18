@@ -38,7 +38,10 @@
               Welcome
             </div>
             <div class="card-body">
+
               <h5 class="card-title">International Concept Academy</h5><br>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
               <p class="card-text">Welcome To International Concept Academy Administrator Login</p>
               <label>Email: &nbsp;</label><input asp-for="Email" id="emaillgn" type="email" placeholder="email@example.com"><br>
                <span asp-validation-for="Email" class="text-danger"></span>

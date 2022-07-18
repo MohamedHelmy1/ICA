@@ -39,6 +39,17 @@ namespace BLL.Servies
 
         }
 
+        public bool AddcourseTime(CoursesTimeViewModel Courses)
+        {
+            CourseTime obj = new CourseTime();
+            obj.Time = Courses.Time;
+            obj.Day = Courses.Day;
+            obj.FK_CourseId = Courses.FK_CourseId;
+            db.Courset.Add(obj);
+            db.SaveChanges();
+            return true;
+        }
+
         public bool Edit(CoursesDetailViewModel Courses)
         {
             try
@@ -57,7 +68,22 @@ namespace BLL.Servies
            
         }
 
-       
+        public IEnumerable<CoursesTimeViewModel> GetAll(int id)
+        {
+            List<CoursesTimeViewModel> list = new List<CoursesTimeViewModel>();
+            var date = db.Courset.Where(x => x.FK_CourseId == id).Select(x=>x);
+            foreach (var item in date)
+            {
+                CoursesTimeViewModel obj = new CoursesTimeViewModel();
+                obj.Time = item.Time;
+                obj.Day= item.Day;
+                obj.Id = item.Id;
+                list.Add(obj);
+
+
+            }
+            return list;
+        }
 
         public CoursesDetailViewModel GetById(int id)
         {

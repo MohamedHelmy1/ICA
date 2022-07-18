@@ -1,28 +1,43 @@
 ﻿using BLL.Interface;
+using DAL.Entities;
 using DAL.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace UI.Areas.Admin.Controllers
 {
-    [Authorize(Roles ="Admin")]
 
+
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
+        private readonly UserManager<AplicationUser> userManger;
         private readonly ISliderRep slider;
         private readonly ICoursesRep courses;
         private readonly ICourseDetail courseDetail;
         private readonly IAboutRep about;
+        private readonly IUserCourseRep userCourse;
 
-        public AdminController(ISliderRep slider,ICoursesRep courses,ICourseDetail courseDetail,IAboutRep about)
+        public AdminController(UserManager<AplicationUser> userManger,ISliderRep slider,ICoursesRep courses,ICourseDetail courseDetail,IAboutRep about,IUserCourseRep userCourse)
         {
+            this.userManger = userManger;
             this.slider = slider;
             this.courses = courses;
             this.courseDetail = courseDetail;
             this.about = about;
+            this.userCourse = userCourse;
         }
-        public IActionResult Home()
+        public async Task<IActionResult> Home()
+
         {
+            ViewBag.id = courses.GetAll();
+            ViewBag.courseCount = courses.count();
+            ViewBag.user=  await userManger.GetUsersInRoleAsync("User");
+            var a = await userManger.GetUsersInRoleAsync("User");
+            
+
             return View();
         }
         #region Slider
@@ -181,7 +196,32 @@ namespace UI.Areas.Admin.Controllers
         }
         #endregion
         #region Courses Detail
-       
+        public IActionResult AddCoursesTime(int id)
+        {
+            ViewBag.id=id;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCoursesTime(CoursesTimeViewModel courses)
+        {
+            var data = courseDetail.AddcourseTime(courses);
+
+            return RedirectToAction("AddCoursesTime", new {id=courses.FK_CourseId});
+        }
+        [HttpPost]
+        public IActionResult AddCoursesLink (int id, string link)
+        {
+            var data=courses.EditLink(id,link);
+            return Json(data);
+        }
+        [HttpPost]
+        public IActionResult DeleteCoursesLink(int id)
+        {
+            var data = courses.RemoveLink(id);
+            return Json(data);
+        }
+
+
         public IActionResult AddCoursesDetail(int id)
         {
             ViewBag.id = id;
@@ -220,6 +260,11 @@ namespace UI.Areas.Admin.Controllers
             var data = courseDetail.GetById(id);
             return View(data);
         }
+        public IActionResult AllCourses()
+        {
+            
+            return View();
+        }
         [HttpPost]
         public IActionResult UpdateCoursesDetail(CoursesDetailViewModel coursesDetail)
         {
@@ -239,6 +284,27 @@ namespace UI.Areas.Admin.Controllers
             return View(coursesDetail);
         }
         #endregion
-        
+        #region Accept User in course
+        public IActionResult AcceptUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AcceptCourses(int id)
+        {
+            var data = userCourse.AdminAcceptuser(id);
+            return Json(data);
+        }
+        [HttpPost]
+        public IActionResult NotAcceptCourses(int id)
+        {
+            var data = userCourse.AdminAcceptuser(id);
+            return Json(data);
+        }
+
+
+
+        #endregion
+
     }
 }

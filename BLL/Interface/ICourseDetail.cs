@@ -12,5 +12,9 @@ namespace BLL.Interface
         bool Add(CoursesDetailViewModel Courses);
         bool Edit(CoursesDetailViewModel Courses);
         CoursesDetailViewModel GetById(int id);
+        bool AddcourseTime(CoursesTimeViewModel Courses);
+        IEnumerable<CoursesTimeViewModel> GetAll(int id);
+
+
     }
 }

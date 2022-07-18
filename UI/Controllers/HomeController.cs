@@ -152,6 +152,12 @@ namespace UI.Controllers
             var d = userCourseRep.AddCouse(id, userId);
             return Json(d);
         }
+        public IActionResult UserProfile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var data = userCourseRep.GetUserCourses(userId);
+            return View(data);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

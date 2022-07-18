@@ -18,5 +18,8 @@ namespace DAL.Entities
 
         [ForeignKey("UserId")]
         public virtual AplicationUser User { get; set; }
+        public string Date { get; set; }
+        public int state { get; set; }
+
     }
 }

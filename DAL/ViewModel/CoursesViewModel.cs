@@ -18,6 +18,8 @@ namespace DAL.ViewModel
         public string Image { get; set; }
         [Required]
         public IFormFile Images { get; set; }
+        public string Link { get; set; }
+
 
     }
 }
