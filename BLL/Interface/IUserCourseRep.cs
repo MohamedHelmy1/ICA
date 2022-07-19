@@ -14,6 +14,12 @@ namespace BLL.Interface
         bool AdminAcceptuser(int id);
         bool AdminNotAcceptuser(int id);
         IEnumerable<CoursesViewModel> GetUserCourses(string userId);
+        Task<IEnumerable<UserViewModel>> GetUserinCourses(int CourseId);
+        bool RemoveUser(int id);
+        bool Fishcourse(int id);
+
+
+
 
 
 

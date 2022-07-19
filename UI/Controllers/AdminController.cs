@@ -4,6 +4,7 @@ using DAL.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace UI.Areas.Admin.Controllers
@@ -98,9 +99,27 @@ namespace UI.Areas.Admin.Controllers
             return View(sliders);
         }
         #endregion
-        #region About and التوثيق
-       
-       
+
+        #region About and التوثيق Contact
+
+        public IActionResult Contact()
+        {
+            var data = about.Getcontact();
+
+            return View(data);
+           
+        }
+        [HttpPost]
+        public IActionResult Contact(ContactViewmodel contact)
+        {
+            var data = about.Contant(contact);
+            if (data == true)
+            {
+                return RedirectToAction("Home");
+
+            }
+            return View(contact);
+        }
         public IActionResult About()
         {
             var data = about.GetAbout();
@@ -209,15 +228,15 @@ namespace UI.Areas.Admin.Controllers
             return RedirectToAction("AddCoursesTime", new {id=courses.FK_CourseId});
         }
         [HttpPost]
-        public IActionResult AddCoursesLink (int id, string link)
+        public async Task <IActionResult> AddCoursesLink (int id, string link)
         {
-            var data=courses.EditLink(id,link);
+            var data=await courses.EditLink(id,link);
             return Json(data);
         }
         [HttpPost]
-        public IActionResult DeleteCoursesLink(int id)
+        public async Task<IActionResult> DeleteCoursesLink(int id)
         {
-            var data = courses.RemoveLink(id);
+            var data =await courses.RemoveLink(id);
             return Json(data);
         }
 
@@ -305,6 +324,104 @@ namespace UI.Areas.Admin.Controllers
 
 
         #endregion
+        #region UpdateAdminprofile
+        public async Task <IActionResult> UpdateAdmin()
+        {
+            AdminviewModel data = new AdminviewModel();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            data.Name = (await userManger.FindByIdAsync(userId)).NameOfUser;
+            data.Email = (await userManger.FindByIdAsync(userId)).Email;
+            data.Phone= (await userManger.FindByIdAsync(userId)).PhoneNumber;
+            data.UserId = userId;
 
+
+            return View(data);
+        }
+        public async Task<IActionResult> Changepasswored()
+        {
+            AdminviewModel data = new AdminviewModel();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            data.UserId = userId;
+
+
+            return View(data);
+        }
+        
+        //update password
+        [HttpPost]
+        public async Task<IActionResult> Changepasswored(AdminviewModel model)
+        {
+            var user = await userManger.FindByIdAsync(model.UserId);
+
+            // change username and email
+           
+            // Persiste the changes
+            var result = await userManger.ChangePasswordAsync(user,model.OldPassword,model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("LoginOut","Home");
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "Current password in not Vaild");
+                return View(model);
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Updateinfo(AdminviewModel model)
+        {
+            // get user object from the storage
+            var user = await userManger.FindByIdAsync(model.UserId);
+
+            // change username and email
+            user.NameOfUser = model.Name;
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.PhoneNumber = model.Phone;
+
+            // Persiste the changes
+           var result= await userManger.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("UpdateAdmin");
+
+            }
+            else
+            {
+                return View(model);
+            }
+
+        }
+        
+            
+        #endregion
+        public IActionResult GetUserInCourse(int id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult DeleteUserFromCourse(int id)
+        {
+            var data = userCourse.RemoveUser(id);
+            return Json(data);
+        }
+        [HttpPost]
+        public IActionResult finshCourses(int id)
+        {
+            var data = userCourse.RemoveUser(id);
+            return Json(data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAdminInfo()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var user = await userManger.FindByIdAsync(userId);
+
+            return Json(user.NameOfUser);
+        }
     }
 }

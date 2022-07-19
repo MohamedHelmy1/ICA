@@ -104,7 +104,7 @@
 
         <label>اسم الماجستير-الدكتوراه-الدبلوم( المراد الحصول عليه ) <span style="color:#ff0000">*</span></label><br>
         <select asp-for="CourseId" autofocus>
-            <option value="0">اختر الاسم</option>
+            <option value="">اختر الاسم</option>
 
             @foreach (var item in course.GetAll())
            {

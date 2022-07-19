@@ -24,6 +24,8 @@ namespace DAL.Database
         public DbSet<Slider> Slider { get; set; }
         public DbSet<UserCourses> UserCourses { get; set; }
         public DbSet<CourseTime> Courset { get; set; }
+        public DbSet<Contact> Cont { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Helper;
+using BLL.Hubs;
 
 namespace UI
 {
@@ -61,6 +62,7 @@ namespace UI
             {
                 options.LoginPath = "/Account/Login";
             });
+            services.AddSignalR();
 
         }
 
@@ -97,7 +99,9 @@ namespace UI
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ReailTime>("/reailtime");
             });
+
         }
     }
 }

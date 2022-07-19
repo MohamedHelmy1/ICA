@@ -120,6 +120,59 @@ namespace BLL.Servies
             
             return active;
         }
+
+        public bool Contant(ContactViewmodel contana)
+        {
+            var data = db.Cont.FirstOrDefault();
+            if (data == null)
+            {
+                try
+                {
+                    Contact obj = new Contact();
+                    obj.Name = contana.Name;
+
+                    db.Cont.Add(obj);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
+            }
+            else
+            {
+                try
+                {
+                    data.Name = contana.Name;
+
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
+            }
+            throw new NotImplementedException();
+        }
+        public ContactViewmodel Getcontact()
+        {
+            ContactViewmodel active = new ContactViewmodel();
+            var data = db.Cont.FirstOrDefault();
+            if (data != null)
+            {
+                active.Name = data.Name;
+                active.Id = data.Id;
+            }
+
+            return active;
+        }
         #endregion
     }
+   
+
 }

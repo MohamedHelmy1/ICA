@@ -10,6 +10,10 @@ namespace BLL.Interface
     public interface IAboutRep
     {
         bool About(AboutViewModel About);
+        bool Contant(ContactViewmodel contant);
+
+        ContactViewmodel Getcontact();
+
         AboutViewModel GetAbout();
         bool Active(ActiveteCoursesViewModel Active);
         ActiveteCoursesViewModel GetActive();

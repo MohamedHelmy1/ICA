@@ -1,6 +1,8 @@
-﻿using BLL.Interface;
+﻿using BLL.Helper.SendMail;
+using BLL.Interface;
 using DAL.Entities;
 using DAL.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -33,20 +35,39 @@ namespace UI.Controllers
             this.roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task <IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (userId != null)
+            {
+                var UserRole = await userManager.GetRolesAsync(user);
+                if (UserRole.Count != 0)
+                {
+                    if (UserRole[0] == "Admin")
+                    {
+                return RedirectToAction("LoginOut");
+
+
+                    }
+                }
+
+            }
             return View();
         }
         public IActionResult Courses()
         {
             return View();
         }
-        public IActionResult contact()
+       
+        public IActionResult About()
         {
             return View();
         }
-        public IActionResult About()
+        public IActionResult Contact()
         {
+
             return View();
         }
         public IActionResult CourseDetail(int id)
@@ -76,11 +97,14 @@ namespace UI.Controllers
                var result=await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    
                     await signInManager.SignInAsync(user, true);
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var d = userCourseRep.AddCouse(model.CourseId, userId);
+                    
                     var TestRole = await roleManager.RoleExistsAsync("User");
                     var user2 = await userManager.FindByEmailAsync(model.Email);
+                    
+                    var userId = user2.Id;
+                    var d = userCourseRep.AddCouse(model.CourseId, userId);
 
                     if (!TestRole)
                     {
@@ -89,6 +113,21 @@ namespace UI.Controllers
                     }
                     // put LabDoctor in LabDoctor role
                     var result2 = await userManager.AddToRoleAsync(user2, "User");
+                    //send massage to Admin Acount
+                    var Email = await userManager.GetUsersInRoleAsync("Admin");
+                    var passwordResetLink = Url.Action("AcceptUser", "Admin", "", Request.Scheme);
+
+
+                    foreach (var item in Email)
+                    {
+                        MailSender.SendMail(new MailViewModel()
+                        {
+
+                            Email = item.Email,
+                            Title = "ICA",
+                            Message = "User " + user.NameOfUser + "has ask to join course clik here to " + passwordResetLink
+                        });
+                    }
                     return RedirectToAction("Index");
                 }
                 else
@@ -146,12 +185,31 @@ namespace UI.Controllers
         }
         #endregion
         [HttpPost]
-        public IActionResult AddUserCourse(int id)
+        public async Task <IActionResult> AddUserCourse(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
             var d = userCourseRep.AddCouse(id, userId);
+            var user = await userManager.FindByIdAsync(userId);
+            var Email = await userManager.GetUsersInRoleAsync("Admin");
+            var passwordResetLink = Url.Action("AcceptUser", "Admin","", Request.Scheme);
+
+
+            foreach (var item in Email)
+            {
+                MailSender.SendMail(new MailViewModel()
+                {
+
+                    Email = item.Email,
+                    Title = "ICA",
+                    Message = "User " + user.NameOfUser + "has ask to join course clik here to " + passwordResetLink
+                });
+            }
+
+           
             return Json(d);
         }
+       
         public IActionResult UserProfile()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

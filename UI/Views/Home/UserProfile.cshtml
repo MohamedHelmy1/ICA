@@ -47,17 +47,35 @@
                   <h5 class="card-title">@item.Name</h5>
                   <p class="card-text">@item.Description</p>
                 </div>
-                <center>
-                    @if( item.Link==null||item.Link=="")
+                @if (item.state==1)
+               {
+                   <center>
+                    @if(item.Link==null||item.Link=="")
                     {
-                        <p>Next Lecture in </p>
+                        <p>Next Lecture in @item.NextLeather</p>
                                         
                                     }
                                     else
                                     {
                                         <a href="@item.Link" id="get" class="btn">Enter the lecture</a>
                                     }
-                                </center>
+                                    </center>
+                                }
+                                else if(item.state==-1)
+                                {
+                                    <center>
+                                    <p>Admin Remove You</p>
+
+                                    </center>
+                                }else if (item.state==2)
+                                {
+                                    <center>
+                                    <p>Course Finish</p>
+
+                                    </center>
+                                    
+                                }
+
               </div>
             </div>
            }
@@ -66,7 +84,7 @@
           </div>
       
     </article></center>
-    <article>
+  @*  <article>
 
       <center>
         <br><br>
@@ -75,7 +93,7 @@
         
       </center>
 
-    </article>
+    </article>*@
 <br><br>
 <footer>
 
@@ -92,3 +110,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
+<script src="~/js/jquery/jquery.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+
+
+  <script>
+      var connection = new signalR.HubConnectionBuilder().withUrl("/reailtime").build();
+          connection.on("AddLink", function () {
+          location.reload();
+          });
+      connection.start();
+
+  </script>

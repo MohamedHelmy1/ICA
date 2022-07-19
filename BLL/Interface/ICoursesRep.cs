@@ -15,8 +15,8 @@ namespace BLL.Interface
         UpdateCoursesViewModel GetById(int id);
         int count();
         bool Delete(int id);
-        bool EditLink(int id,string link);
-        bool RemoveLink(int id);
+       Task <bool> EditLink(int id,string link);
+        Task<bool> RemoveLink(int id);
 
     }
 }

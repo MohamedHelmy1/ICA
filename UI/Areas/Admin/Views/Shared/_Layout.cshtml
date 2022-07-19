@@ -111,6 +111,7 @@
                             <li><i class="fa fa-table"></i><a href="/Admin/Slider">Slider</a></li>
                             <li><i class="fa fa-table"></i><a href="/Admin/About">About</a></li>
                             <li><i class="fa fa-table"></i><a href="/Admin/Active">التوثيق</a></li>
+                             <li><i class="fa fa-table"></i><a href="/Admin/Contact">Contact</a></li>
                       
                         </ul>
                     </li>
@@ -118,21 +119,30 @@
                         <a href="/Admin/AllCourses"> <i class="menu-icon fa fa-th"></i>All Courses</a>
                     </li>
 
-                 @*    <li class="menu-title">Users</li><!-- /.menu-title -->
+                    <li class="menu-title">Users</li><!-- /.menu-title -->
 
                     <li>
-                        <a href="/Admin/Admin/Users"> <i class="menu-icon fa fa-user"></i>Users </a>
+                        <a href="/Admin/AcceptUser"> <i class="menu-icon fa fa-user"></i>Accept Users To courses </a>
                     </li>
-                    <li>
+                   
+                    @* <li>
                         <a href="/Admin/Admin/AdminChat"> <i class="menu-icon fa fa-envelope-open-text"></i>Mails </a>
-                    </li>
+                    </li>*@
 
                     <li class="menu-title">Admins</li><!-- /.menu-title -->
 
-                    <li>
-                        <a href="/Admin/Admin/Admins"> <i class="menu-icon fa fa-group"></i>Admins </a>
+                    
+                     <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-group"></i>Admin</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class=""></i><a href="/Admin/UpdateAdmin">Update Admin info</a></li>
+                            <li><i class=""></i><a href="/Admin/Changepasswored"">Change passwored</a></li>
+
+                           
+                      
+                        </ul>
                     </li>
-                    <li>
+                  @* <li>
                         <a href="/Admin/Admin/Settings"> <i class="menu-icon fa fa-cog"></i>Settings </a>
                     </li>*@
                     <li>
@@ -214,25 +224,21 @@
     <script type="text/javascript">
         "use strict";
         $(document).ready(function () {
-            //$.ajax({
-            //    type: "GET",
-            //    url: "/Admin/Admin/GetAdminInfo",
-            //    dataType: "json",
-            //    success: function (result) {
-            //        $('#adminName').append(result);
-            //        var splitedName = SplitName(result);
-            //        $('#imgDiv').text(splitedName);
-            //    }
-            //});
+            $.ajax({
+                type: "GET",
+                url: "/Admin/GetAdminInfo",
+                dataType: "json",
+                success: function (result) {
+                    $('#adminName').append(result);
+                    var splitedName = result.substring(0,2);
+                    $('#imgDiv').text(splitedName);
+                }
+            });
            
         });
    
 
-        //function SplitName(username) {
-        //    const fullName = username.split(' ');
-        //    const initials = fullName.shift().charAt(0) + fullName.pop().charAt(0);
-        //    return initials.toUpperCase();
-        //}
+        
      
                                                                                                                            
     </script>

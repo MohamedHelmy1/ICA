@@ -1,0 +1,104 @@
+﻿@model DAL.ViewModel.AdminviewModel
+
+@{
+    ViewData["Title"] = "Changepasswored";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label{
+            color: cadetblue;
+    }
+</style>
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-inner">
+            <div class="row m-0">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="/Admin/Index">Dashboard</a></li>
+                                <li class="active"> Update Admin Information </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   
+     <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style=" display: flex; justify-content: space-between;">
+                            <strong class="card-title">Update passwored</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                   <form method="post" asp-action="Changepasswored"   enctype="multipart/form-data" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="UserId" type="hidden" />
+           
+            <div class="form-group">
+                <label asp-for="OldPassword" class="control-label">Current Password</label>
+                <input asp-for="OldPassword" class="form-control" placeholder="******"/>
+                <span asp-validation-for="OldPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"> New Password</label>
+                <input asp-for="Password" class="form-control"placeholder="*****" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label">Confirm New Password</label>
+                <input  asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+
+
+
+      
+                                </div>
+                            </div>
+
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+<div class="row">
+    <div class="col-md-4">
+        
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+

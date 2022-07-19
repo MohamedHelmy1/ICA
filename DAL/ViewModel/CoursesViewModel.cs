@@ -19,6 +19,10 @@ namespace DAL.ViewModel
         [Required]
         public IFormFile Images { get; set; }
         public string Link { get; set; }
+        public string NextLeather { get; set; }
+        public int state { get; set; }
+
+
 
 
     }

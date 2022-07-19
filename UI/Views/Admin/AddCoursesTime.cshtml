@@ -166,9 +166,9 @@
      
     
 
-<div class="row">
-    <div class="col-md-4">
-        
+<div class="row" style="text-align:center">
+    <div class="col-md-12">
+        <button class="btn btn-danger" onclick="Finsh(@id)" >Finsh Course</button>
     </div>
 </div>
 
@@ -178,7 +178,36 @@
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script>
-    
+  function Finsh(id){
+         swal({
+            title: `Are you sure you want to Findh this Course?`,
+            text: "If you Finch this, it will be gone forever.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/Admin/finshCourses",
+                        data: {
+                            id: id,
+
+                        },
+
+                        success: function (res) {
+
+                            swal("Deleted!", "Your imaginary file has been archived.", "success");
+                            window.location = "/Admin/AllCourses"
+
+                        }
+
+                    });
+                }
+            });
+  }  
 function Save() {
     var id=@id;
     var link=$("#link").val();

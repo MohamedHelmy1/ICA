@@ -4,6 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @inject BLL.Interface.ICoursesRep course
+@inject BLL.Interface.IUserCourseRep user
 <style>
     label{
             color: cadetblue;
@@ -51,6 +52,13 @@
   <div class="card-body">
     <h5 class="card-title">@item.Name</h5>
     <p class="card-text">@item.Description</p>
+                                        <p class="col-md-6">@{
+                                                var a=  await user.GetUserinCourses(item.Id);
+                                                
+                                            }
+                                           <a href="/Admin/GetUserInCourse?id=@item.Id">@a.Count() Student</a>
+    </p>
+    
                                         @if (item.Link==null||item.Link=="")
                                         {
                                             <a href="/Admin/AddCoursesTime?id=@item.Id" class="btn btn-primary">Add Course Link Or Course Time</a>

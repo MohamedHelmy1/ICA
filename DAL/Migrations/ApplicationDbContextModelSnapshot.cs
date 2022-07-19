@@ -132,6 +132,21 @@ namespace DAL.Migrations
                     b.ToTable("Users", "security");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cont");
+                });
+
             modelBuilder.Entity("DAL.Entities.CourseTime", b =>
                 {
                     b.Property<int>("Id")
@@ -175,6 +190,9 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NextLeather")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
