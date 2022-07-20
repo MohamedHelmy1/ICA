@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using BLL.Helper.SendMail;
 using BLL.Interface;
 using DAL.Database;
 using DAL.Entities;
@@ -65,13 +66,26 @@ namespace BLL.Servies
                
             
         }
-        public bool AdminAcceptuser(int id)
+        public async Task<bool> AdminAcceptuser(int id, string url)
         {
             var data = db.UserCourses.Where(x => x.id == id).FirstOrDefault();
             if (data != null)
             {
                 data.state = 1;
                 db.SaveChanges();
+                var user = await userManager.FindByIdAsync(data.UserId);
+                var course=db.Courses.Where(x=>x.Id==data.Fk_CouresId).Select(x=>x.Name).FirstOrDefault();
+                StringBuilder body = new StringBuilder();
+                body.AppendLine("International Concept Academy");
+                body.AppendFormat("Admin Accept You to join Course:'{0}'",course);
+                body.AppendFormat("clik the Link to join it<ahref='{0}'> click</a>", url);
+                MailSender.SendMail(new MailViewModel()
+                {
+
+                    Email = user.Email,
+                    Title = "International Concept Academy",
+                    Message = body.ToString()
+                });
 
                 return true;
             }
@@ -96,6 +110,7 @@ namespace BLL.Servies
             var data = db.UserCourses.Where(x => x.UserId == userId && x.state != 0);
             foreach (var item in data)
             {
+               
                 var course = db.Courses.Where(x => x.Id == item.Fk_CouresId).FirstOrDefault();
                 courses.Add(new CoursesViewModel
                 {
@@ -107,7 +122,9 @@ namespace BLL.Servies
                     NextLeather=course.NextLeather,
                     state=item.state,
                     
+                    StartDate=DateTime.Parse(course.StartDate).ToString("dd/MM/yyyy")
 
+                   
                 });
 
             }

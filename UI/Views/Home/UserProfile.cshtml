@@ -52,7 +52,16 @@
                    <center>
                     @if(item.Link==null||item.Link=="")
                     {
-                        <p>Next Lecture in @item.NextLeather</p>
+                        @if (item.NextLeather==null||item.NextLeather=="")
+                                            {
+                                                <p>Course Start at @item.StartDate</p>
+                                                
+                                            }
+                                            else
+                                            {
+                                                <p>Next Lecture in @item.NextLeather</p>
+                                            }
+                                            
                                         
                                     }
                                     else

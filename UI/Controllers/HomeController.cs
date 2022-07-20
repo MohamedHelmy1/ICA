@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using UI.Models;
 
@@ -116,7 +117,10 @@ namespace UI.Controllers
                     //send massage to Admin Acount
                     var Email = await userManager.GetUsersInRoleAsync("Admin");
                     var passwordResetLink = Url.Action("AcceptUser", "Admin", "", Request.Scheme);
-
+                    StringBuilder body = new StringBuilder();
+                    body.AppendLine("International Concept Academy");
+                    body.AppendFormat("User '{0}' Hass Ask to join Course", user.NameOfUser);
+                    body.AppendFormat("clik the Link to Accept it<a href='{0}'> click </a>", passwordResetLink);
 
                     foreach (var item in Email)
                     {
@@ -124,8 +128,8 @@ namespace UI.Controllers
                         {
 
                             Email = item.Email,
-                            Title = "ICA",
-                            Message = "User " + user.NameOfUser + "has ask to join course clik here to " + passwordResetLink
+                            Title = "International Concept Academy",
+                            Message = body.ToString()
                         });
                     }
                     return RedirectToAction("Index");
@@ -190,23 +194,28 @@ namespace UI.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
             var d = userCourseRep.AddCouse(id, userId);
-            var user = await userManager.FindByIdAsync(userId);
-            var Email = await userManager.GetUsersInRoleAsync("Admin");
-            var passwordResetLink = Url.Action("AcceptUser", "Admin","", Request.Scheme);
+           
 
-
+            if (d == true) {
+                var user = await userManager.FindByIdAsync(userId);
+                var Email = await userManager.GetUsersInRoleAsync("Admin");
+                var passwordResetLink = Url.Action("AcceptUser", "Admin", "", Request.Scheme);
+                StringBuilder body = new StringBuilder();
+                body.AppendLine("International Concept Academy");
+                body.AppendFormat("User '{0}' Hass Ask to join Course" , user.NameOfUser);
+                body.AppendFormat("clik the Link to Accept it<a href='{0}'> click </a>", passwordResetLink);
             foreach (var item in Email)
             {
                 MailSender.SendMail(new MailViewModel()
                 {
 
                     Email = item.Email,
-                    Title = "ICA",
-                    Message = "User " + user.NameOfUser + "has ask to join course clik here to " + passwordResetLink
+                    Title = "International Concept Academy",
+                    Message = body.ToString()
                 });
             }
 
-           
+            }
             return Json(d);
         }
        

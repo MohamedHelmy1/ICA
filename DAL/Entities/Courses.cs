@@ -15,6 +15,7 @@ namespace DAL.Entities
         public string Link { get; set; }
         public string NextLeather { get; set; }
 
+        public string StartDate { get; set; }
 
         public bool Delete { get; set; }
 

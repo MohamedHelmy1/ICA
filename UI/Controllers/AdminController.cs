@@ -228,6 +228,13 @@ namespace UI.Areas.Admin.Controllers
             return RedirectToAction("AddCoursesTime", new {id=courses.FK_CourseId});
         }
         [HttpPost]
+        public IActionResult DeleteCourseTime (int id)
+        {
+            var data = courseDetail.DeleteCourseTime(id);
+            return Json(data);
+        }
+        [HttpPost]
+        
         public async Task <IActionResult> AddCoursesLink (int id, string link)
         {
             var data=await courses.EditLink(id,link);
@@ -309,15 +316,17 @@ namespace UI.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AcceptCourses(int id)
+        public async Task <IActionResult> AcceptCourses(int id)
         {
-            var data = userCourse.AdminAcceptuser(id);
+            var url = Url.Action("Index", "Home", "", Request.Scheme);
+
+            var data =await userCourse.AdminAcceptuser(id,url);
             return Json(data);
         }
         [HttpPost]
         public IActionResult NotAcceptCourses(int id)
         {
-            var data = userCourse.AdminAcceptuser(id);
+            var data = userCourse.AdminNotAcceptuser(id);
             return Json(data);
         }
 

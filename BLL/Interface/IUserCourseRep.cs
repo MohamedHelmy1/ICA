@@ -11,7 +11,7 @@ namespace BLL.Interface
     {
         bool AddCouse(int id,string UserId);
         Task<IEnumerable<UserCoursesViewModel>> GetAllCoursetoAdminAcsept();
-        bool AdminAcceptuser(int id);
+        Task<bool> AdminAcceptuser(int id,string url);
         bool AdminNotAcceptuser(int id);
         IEnumerable<CoursesViewModel> GetUserCourses(string userId);
         Task<IEnumerable<UserViewModel>> GetUserinCourses(int CourseId);

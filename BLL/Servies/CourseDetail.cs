@@ -84,6 +84,13 @@ namespace BLL.Servies
             }
             return list;
         }
+        public bool DeleteCourseTime(int id)
+        {
+            var date = db.Courset.Where(x => x.Id == id).FirstOrDefault();
+            db.Courset.Remove(date);
+            db.SaveChanges();
+            return true;  
+        }
 
         public CoursesDetailViewModel GetById(int id)
         {

@@ -14,6 +14,7 @@ namespace BLL.Interface
         CoursesDetailViewModel GetById(int id);
         bool AddcourseTime(CoursesTimeViewModel Courses);
         IEnumerable<CoursesTimeViewModel> GetAll(int id);
+        bool DeleteCourseTime(int id);
 
 
     }

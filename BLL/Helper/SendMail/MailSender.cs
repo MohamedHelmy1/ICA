@@ -21,10 +21,10 @@ namespace BLL.Helper.SendMail
                 smtp.EnableSsl = true;
 
                 // Insert Credentials
-                smtp.Credentials = new NetworkCredential("Mohamed121helmy@gmail.com", "oqekdshgviiqcghv");
+                smtp.Credentials = new NetworkCredential("conceptacademy8@gmail.com", "qliutqmigkpcalps");
 
                 // Send Your Message
-                smtp.Send("Mohamed121helmy@gmail.com", model.Email, model.Title, model.Message);
+                smtp.Send("conceptacademy8@gmail.com", model.Email, model.Title, model.Message);
 
                 var Result = "Mail Sent";
 

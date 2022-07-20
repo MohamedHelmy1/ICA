@@ -9,6 +9,7 @@ using DAL.ViewModel;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,91 +103,202 @@ namespace BLL.Servies
         {
             var data = db.Courses.Where(x => x.Id == id).FirstOrDefault();
             var Day= DateTime.Now.DayOfWeek.ToString();
-
+            
+            List<int> Add = new List<int>();
             var a = "";
             var x=db.Courset.Where(x=>x.FK_CourseId==id);
             DateTime t1 = DateTime.Now;
+            var time9 = "";
+            var Day1 = "";
+            var d = "";
+            var ax = 0;
             switch (Day)
             {
-                case "Saturday":
-                    foreach (var c in x) {
+                  case "Saturday":
+                    foreach (var c in x)
+                    {
+
+
                         var dataj1 = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
 
-                        if (DateTime.Compare(t1, Convert.ToDateTime(c.Time)) == 1)
+                        if (DateTime.Compare(t1, Convert.ToDateTime(c.Time)) > 1)
                         {
                             var dataj = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
 
-                     }
-                    if (c.Day == "Sunday")
-                    {
+                        }
+
+                        if (c.Day == "Sunday")
+                        {
+                            Add.Add(1);
                             a = c.Day;
+                        }
+                        else if (c.Day == "Monday")
+                        {
+                            Add.Add(2);
+
+                            a = c.Day;
+                        }
+                        else if (c.Day == "Tuesday")
+                        {
+                            Add.Add(3);
+
+                            a = c.Day;
+                        }
+                        else if (c.Day == "Wednesday")
+                        {
+                            Add.Add(4);
+
+                            a = c.Day;
+                        }
+                        else if (c.Day == "Thursday")
+                        {
+                            Add.Add(5);
+
+                            a = c.Day;
+
+                        }
+                        else if (c.Day == "Friday")
+                        {
+                            Add.Add(6);
+
+                            a = c.Day;
+                        }
+                        else if (c.Day == "Saturday")
+                        {
+                            Add.Add(7);
+
+                            a = c.Day;
+                        }
 
                     }
-                    else if (c.Day == "Monday")
+                    ax = Add[0];
+                    foreach (var it in Add)
                     {
-                            a = c.Day;
+                        if (it < ax)
+                        {
+                            ax = it;
                         }
-                    else if (c.Day == "Tuesday")
-                    {
-                            a = c.Day;
-                        }
-                    else if (c.Day == "Wednesday")
-                    {
-                            a = c.Day;
-                        }
-                    else if (c.Day == "Thursday")
-                    {
-                            a = c.Day;
+                    }
 
-                        }
-                    else if (c.Day == "Friday")
+                    if (ax == 1)
                     {
-                            a = c.Day;
-                        }
-                    else if (c.Day == "Saturday")
+                        d = "Sunday";
+                    }
+                    else if (ax == 2)
                     {
-                            a = c.Day;
-                        }
+                        d = "Monday";
+                    }
+                    else if (ax == 3)
+                    {
+                        d = "Tuesday";
+                    }
+                    else if (ax == 4)
+                    {
+                        d = "Wednesday";
+                    }
+                    else if (ax == 5)
+                    {
+                        d = "Thursday";
+                    }
+                    else if (ax == 6)
+                    {
+                        d = "Friday";
+                    }
+
                    
-                     }
                     // code block
                     break;
                 case "Sunday":
                     foreach (var c in x)
                     {
 
-                       
-                         if (c.Day == "Monday")
+
+                        var dataj1 = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        if (DateTime.Compare(t1, Convert.ToDateTime(c.Time)) > 1)
                         {
+                            var dataj = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        }
+
+                        if (c.Day == "Monday")
+                        {
+                            Add.Add(1);
                             a = c.Day;
                         }
                         else if (c.Day == "Tuesday")
                         {
+                            Add.Add(2);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Wednesday")
                         {
+                            Add.Add(3);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Thursday")
                         {
+                            Add.Add(4);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Friday")
                         {
+                            Add.Add(5);
+
                             a = c.Day;
+
                         }
                         else if (c.Day == "Saturday")
                         {
+                            Add.Add(6);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Sunday")
                         {
-                            a = c.Day;
+                            Add.Add(7);
 
+                            a = c.Day;
                         }
 
                     }
+                    ax = Add[0];
+                    foreach (var it in Add)
+                    {
+                        if (it < ax)
+                        {
+                            ax = it;
+                        }
+                    }
+
+                    if (ax == 1)
+                    {
+                        d = "Monday";
+                    }
+                    else if (ax == 2)
+                    {
+                        d = "Tuesday";
+                    }
+                    else if (ax == 3)
+                    {
+                        d = "Wednesday";
+                    }
+                    else if (ax == 4)
+                    {
+                        d = "Thursday";
+                    }
+                    else if (ax == 5)
+                    {
+                        d = "Friday";
+                    }
+                    else if (ax == 6)
+                    {
+                        d = "Saturday";
+                    }
+
                     // code block
                     break;
                 case "Monday":
@@ -194,38 +306,93 @@ namespace BLL.Servies
                     {
 
 
-                       
+                        var dataj1 = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        if (DateTime.Compare(t1, Convert.ToDateTime(c.Time)) > 1)
+                        {
+                            var dataj = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        }
+
                         if (c.Day == "Tuesday")
                         {
+                            Add.Add(1);
                             a = c.Day;
                         }
                         else if (c.Day == "Wednesday")
                         {
+                            Add.Add(2);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Thursday")
                         {
+                            Add.Add(3);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Friday")
                         {
+                            Add.Add(4);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Saturday")
                         {
-                            a = c.Day;
-                        }
-                        else if (c.Day == "Sunday")
-                        {
+                            Add.Add(5);
+
                             a = c.Day;
 
                         }
+                        else if (c.Day == "Sunday")
+                        {
+                            Add.Add(6);
+
+                            a = c.Day;
+                        }
                         else if (c.Day == "Monday")
                         {
+                            Add.Add(7);
+
                             a = c.Day;
                         }
 
                     }
+                    ax = Add[0];
+                    foreach (var it in Add)
+                    {
+                        if (it < ax)
+                        {
+                            ax = it;
+                        }
+                    }
+
+                    if (ax == 1)
+                    {
+                        d = "Tuesday";
+                    }
+                    else if (ax == 2)
+                    {
+                        d = "Wednesday";
+                    }
+                    else if (ax == 3)
+                    {
+                        d = "Thursday";
+                    }
+                    else if (ax == 4)
+                    {
+                        d = "Friday";
+                    }
+                    else if (ax == 5)
+                    {
+                        d = "Saturday";
+                    }
+                    else if (ax == 6)
+                    {
+                        d = "Sunday";
+                    }
+
+                   
                     // code block
                     break;
                 case "Tuesday":
@@ -243,35 +410,81 @@ namespace BLL.Servies
 
                         if (c.Day == "Wednesday")
                         {
+                            Add.Add(1);
                             a = c.Day;
                         }
                         else if (c.Day == "Thursday")
                         {
+                            Add.Add(2);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Friday")
                         {
+                            Add.Add(3);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Saturday")
                         {
+                            Add.Add(4);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Sunday")
                         {
+                            Add.Add(5);
+
                             a = c.Day;
 
                         }
                         else if (c.Day == "Monday")
                         {
+                            Add.Add(6);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Tuesday")
                         {
+                            Add.Add(7);
+
                             a = c.Day;
                         }
 
                     }
+                      ax = Add[0];
+                    foreach (var it in Add)
+                    {
+                        if (it<ax)
+                        {
+                            ax = it;
+                        }
+                    }
+                    
+                    if (ax==1)
+                    {
+                        d = "Wednesday";
+                    }else if (ax == 2)
+                    {
+                        d = "Thursday";
+                    }
+                    else if (ax == 3)
+                    {
+                        d = "Friday";
+                    }
+                    else if (ax == 4)
+                    {
+                        d = "Saturday";
+                    }
+                    else if (ax == 5)
+                    {
+                        d = "Sunday";
+                    }
+                    else if (ax == 6)
+                    {
+                        d = "Monday";
+                    }
+                   
                     // code block
                     break;
                 case "Wednesday":
@@ -279,38 +492,93 @@ namespace BLL.Servies
                     {
 
 
-                       
+                        var dataj1 = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        if (DateTime.Compare(t1, Convert.ToDateTime(c.Time)) > 1)
+                        {
+                            var dataj = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        }
+
                         if (c.Day == "Thursday")
                         {
+                            Add.Add(1);
                             a = c.Day;
                         }
                         else if (c.Day == "Friday")
                         {
+                            Add.Add(2);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Saturday")
                         {
+                            Add.Add(3);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Sunday")
                         {
-                            a = c.Day;
+                            Add.Add(4);
 
+                            a = c.Day;
                         }
                         else if (c.Day == "Monday")
                         {
+                            Add.Add(5);
+
                             a = c.Day;
+
                         }
                         else if (c.Day == "Tuesday")
                         {
+                            Add.Add(6);
+
                             a = c.Day;
                         }
                         else if (c.Day == "Wednesday")
                         {
+                            Add.Add(7);
+
                             a = c.Day;
                         }
 
                     }
+                    ax = Add[0];
+                    foreach (var it in Add)
+                    {
+                        if (it < ax)
+                        {
+                            ax = it;
+                        }
+                    }
+
+                    if (ax == 1)
+                    {
+                        d = "Thursday";
+                    }
+                    else if (ax == 2)
+                    {
+                        d = "Friday";
+                    }
+                    else if (ax == 3)
+                    {
+                        d = "Saturday";
+                    }
+                    else if (ax == 4)
+                    {
+                        d = "Sunday";
+                    }
+                    else if (ax == 5)
+                    {
+                        d = "Monday";
+                    }
+                    else if (ax == 6)
+                    {
+                        d = "Tuesday";
+                    }
+
+                   
                     // code block
                     break;
                 case "Thursday":
@@ -318,81 +586,262 @@ namespace BLL.Servies
                     {
 
 
+                        var dataj1 = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
 
-                       
-                         if (c.Day == "Friday")
+                        if (DateTime.Compare(t1, Convert.ToDateTime(c.Time)) > 1)
                         {
+                            var dataj = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        }
+
+                        if (c.Day == "Friday")
+                        {
+                            Add.Add(1);
                             a = c.Day;
                         }
                         else if (c.Day == "Saturday")
                         {
-                            a =c.Day ;
+                            Add.Add(2);
+
+                            a = c.Day;
                         }
                         else if (c.Day == "Sunday")
                         {
-                            a =c.Day ;
+                            Add.Add(3);
 
+                            a = c.Day;
                         }
                         else if (c.Day == "Monday")
                         {
-                            a =c.Day ;
+                            Add.Add(4);
+
+                            a = c.Day;
                         }
                         else if (c.Day == "Tuesday")
                         {
-                            a =c.Day ;
+                            Add.Add(5);
+
+                            a = c.Day;
+
                         }
                         else if (c.Day == "Wednesday")
                         {
+                            Add.Add(6);
 
+                            a = c.Day;
                         }
                         else if (c.Day == "Thursday")
                         {
-                            a =c.Day ;
+                            Add.Add(7);
+
+                            a = c.Day;
+                        }
+
+                    }
+                    ax = Add[0];
+                    foreach (var it in Add)
+                    {
+                        if (it < ax)
+                        {
+                            ax = it;
                         }
                     }
+
+                    if (ax == 1)
+                    {
+                        d = "Friday";
+                    }
+                    else if (ax == 2)
+                    {
+                        d = "Saturday";
+                    }
+                    else if (ax == 3)
+                    {
+                        d = "Sunday";
+                    }
+                    else if (ax == 4)
+                    {
+                        d = "Monday";
+                    }
+                    else if (ax == 5)
+                    {
+                        d = "Tuesday";
+                    }
+                    else if (ax == 6)
+                    {
+                        d = "Wednesday";
+                    }
+
+
+                   
                     // code block
                     break;
                 case "Friday":
                     foreach (var c in x)
                     {
 
-                        
+
+                        var dataj1 = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        if (DateTime.Compare(t1, Convert.ToDateTime(c.Time)) > 1)
+                        {
+                            var dataj = DateTime.Compare(t1, Convert.ToDateTime(c.Time));
+
+                        }
+
                         if (c.Day == "Saturday")
                         {
-                            a =c.Day ;
+                            Add.Add(1);
+                            a = c.Day;
                         }
                         else if (c.Day == "Sunday")
                         {
-                            a =c.Day ;
+                            Add.Add(2);
 
+                            a = c.Day;
                         }
                         else if (c.Day == "Monday")
                         {
-                            a =c.Day ;
+                            Add.Add(3);
+
+                            a = c.Day;
                         }
                         else if (c.Day == "Tuesday")
                         {
-                            a =c.Day ;
+                            Add.Add(4);
+
+                            a = c.Day;
                         }
                         else if (c.Day == "Wednesday")
                         {
+                            Add.Add(5);
+
                             a = c.Day;
+
                         }
                         else if (c.Day == "Thursday")
                         {
-                            a =c.Day ;
+                            Add.Add(6);
+
+                            a = c.Day;
                         }
-                        else if(c.Day == "Friday")
+                        else if (c.Day == "Friday")
                         {
-                            a =c.Day ;
+                            Add.Add(7);
+
+                            a = c.Day;
+                        }
+
+                    }
+                    ax = Add[0];
+                    foreach (var it in Add)
+                    {
+                        if (it < ax)
+                        {
+                            ax = it;
                         }
                     }
+
+                    if (ax == 1)
+                    {
+                        d = "Saturday";
+                    }
+                    else if (ax == 2)
+                    {
+                        d = "Sunday";
+                    }
+                    else if (ax == 3)
+                    {
+                        d = "Monday";
+                    }
+                    else if (ax == 4)
+                    {
+                        d = "Tuesday";
+                    }
+                    else if (ax == 5)
+                    {
+                        d = "Wednesday";
+                    }
+                    else if (ax == 6)
+                    {
+                        d = "Thursday";
+                    }
+
+
+
+                   
                     // code block
                     break;
             }
+            //////////////////////////
+
+            var time8 = db.Courset.Where(x => x.Day == Day && x.FK_CourseId == id).Select(x => x.Time).ToList();
+
+            if (time8.Count() != 1 && time8.Count() != 0)
+            {
+                var t = time8[0];
+                foreach (var item in time8)
+                {
+                    var dataj = DateTime.Compare(t1, Convert.ToDateTime(item));
+
+
+                    if (DateTime.Compare(t1, Convert.ToDateTime(item)) < 0)
+                    {
+                        var dataj1 = Convert.ToDateTime(t);
+
+
+                        if (DateTime.Compare(dataj1, Convert.ToDateTime(item)) > 0)
+                        {
+                            time9 = item;
+                            t = item;
+                        }
+
+
+                    }
+                }
+                Day1 = Day;
+
+            }
+
+            var time10 = db.Courset.Where(x => x.Day == d && x.FK_CourseId == id).Select(x => x.Time).ToList();
+            if (time9 == "")
+            {
+                if (time10.Count() == 1)
+                {
+                    time9 = time10[0];
+                }
+                else
+                {
+                    time9 = time10[0];
+                    foreach (var item in time10)
+                    {
+
+                        var dataj = Convert.ToDateTime(time9);
+
+
+
+                        if (DateTime.Compare(dataj, Convert.ToDateTime(item)) > 0)
+                        {
+                            time9 = item;
+
+                        }
+
+
+                    }
+                }
+
+                Day1 = d;
+
+            }
+            if (time9 == "")
+            {
+                time9 = time8[0];
+                Day1 = Day;
+            }
+
+            ///////////////////////////
             data.Link = null;
-            var time = db.Courset.Where(x => x.Day == a && x.FK_CourseId == id).Select(x => x.Time).FirstOrDefault();
-            data.NextLeather = a+"-"+time;
+            data.NextLeather = Day1  +"-"+ time9 ; 
             db.SaveChanges();
             var userId = db.UserCourses.Where(x => x.Fk_CouresId == id && x.state == 1).Select(z => z.UserId);
             if (userId.Any())
@@ -402,6 +851,7 @@ namespace BLL.Servies
             }
             return true;
         }
+       
 
         public IQueryable<CoursesViewModel> GetAll()
         {
