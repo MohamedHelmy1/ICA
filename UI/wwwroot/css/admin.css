@@ -1,6 +1,9 @@
 body{
     background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #007f88 50%);
+background: linear-gradient(50deg, #FF9700 0%, #2A346C 50%);
+}
+#icalogo{
+    background-color: white;
 }
 main{
     font-family: 'Lobster', cursive;
@@ -16,4 +19,16 @@ main{
 }
 #lblp{
     transform: translateX(-12px);
+}
+#ica{
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px;
+}
+#icalogo{
+    border-radius: 30px;
+}
+#icah{
+    background-color: white;
+    border-radius: 30px;
 }

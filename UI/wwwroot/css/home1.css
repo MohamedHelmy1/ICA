@@ -1,13 +1,13 @@
 #home{
-    background-color: #FF9700;
+    background-color: #007f88;
     color: white;
 }
 #contact,#about{
-    color: #FF9700;
+    color: #007f88;
 }
 #get{
     color: white;
-    background-color: #FF9700;
+    background-color: #007f88;
     width: 70%;
     margin: 10px;
     border-radius: 20px;

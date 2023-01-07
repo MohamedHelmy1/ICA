@@ -1,34 +1,36 @@
 header{
     padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
 }
 #home,#contact,#about,#dropdownMenuLink{
     width: 250px;
 }
+#icah{
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
 #ica,#footer{
-    font-family: 'Smooch', cursive;
-    color: #007f88;
-    width: 100%;
-    background-color: black;
+    font-family: 'Merriweather', serif;
+    color: #2A346C;
     float: left;
 }
 #icalogo{
-    height: 100px;
-    width: 100px;
-    background-color: black;
+    height: 130px;
 }
-header{
-    font-family: 'Lobster', cursive;
-}
+
 main{
-    background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #007f88 50%);
+background: linear-gradient(90deg, #FF9700 0%, #2A346C 50%);
 }
 #carouselExampleCaptions{
     padding: 15px;
 }
 #login{
     padding: 100px;
-    font-family: 'Lobster', cursive;
+    font-family: 'Roboto', sans-serif;
 }
 #login input{
     border-radius: 30px;
@@ -38,17 +40,28 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #007f88 50%);
     width: 100px;
     border: 0px;
     border-radius: 20px;
-    color: #007f88;
+    color: #2A346C;
 }
 #sublgn{
     border-radius: 20px;
     color: white;
-    background-color: #007f88;
+    background-color: #2A346C;
 }
 #gitbtn{
     color: white;
-    background-color: #007f88;
+    background-color: #2A346C;
 }
 .card-text{
     text-align: center;
 }
+#nbar{
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+@media screen and (max-width:624px) {
+    #nbar{ 
+        transform: translateX(15vw);
+    }
+    }

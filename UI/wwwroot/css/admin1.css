@@ -1,0 +1,19 @@
+body{
+    background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #007f88 50%);
+}
+main{
+    font-family: 'Lobster', cursive;
+}
+#emaillgn{
+    border-radius: 20px;
+    width: 50%;
+}
+#passlgn{
+    border-radius: 20px;
+    width: 50%;
+    transform: translateX(-12px);
+}
+#lblp{
+    transform: translateX(-12px);
+}
