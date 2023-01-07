@@ -46,7 +46,7 @@ namespace UI.Controllers
                 var UserRole = await userManager.GetRolesAsync(user);
                 if (UserRole.Count != 0)
                 {
-                    if (UserRole[0] == "Admin")
+                    if (UserRole[0] == "Admin"|| UserRole[0] == "Marketer")
                     {
                 return RedirectToAction("LoginOut");
 
@@ -78,7 +78,7 @@ namespace UI.Controllers
             return View(data);
         }
         #region Register And Login
-        public IActionResult Form()
+        public IActionResult Form( string? FK_MarketerId)
         {
             return View();
         }
@@ -93,7 +93,11 @@ namespace UI.Controllers
                     Email = model.Email,
                     Cuntery = model.Countery,
                     PhoneNumber = model.phone,
-                    NameOfUser = model.Name
+                    NameOfUser = model.Name,
+                    FK_MarketerId = model.FK_MarketerId,
+                    Date = DateTime.Now.ToString("dd/MM/yyyy")
+
+
                 };
                var result=await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -120,7 +124,7 @@ namespace UI.Controllers
                     StringBuilder body = new StringBuilder();
                     body.AppendLine("International Concept Academy");
                     body.AppendFormat("User '{0}' Hass Ask to join Course", user.NameOfUser);
-                    body.AppendFormat("clik the Link to Accept it<a href='{0}'> click </a>", passwordResetLink);
+                    body.AppendFormat("clik the Link to Accept it    '{0}'", passwordResetLink);
 
                     foreach (var item in Email)
                     {
@@ -162,6 +166,7 @@ namespace UI.Controllers
                         var UserRole = await userManager.GetRolesAsync(user);
                         if (UserRole.Count != 0)
                         {
+                        
                             if (UserRole[0] == "User")
                             {
                                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Passwored, true, true);
@@ -171,7 +176,16 @@ namespace UI.Controllers
                                 }
 
                             }
-                        }
+                            if (UserRole[0] == "Marketer")
+                            {
+                                var result = await signInManager.PasswordSignInAsync(model.Email, model.Passwored, true, true);
+                                if (result.Succeeded)
+                                {
+                                    return RedirectToAction("Profile", "MarketerProfile");
+                                }
+                           
+                            }
+                    }
 
                     
                 }
@@ -203,7 +217,7 @@ namespace UI.Controllers
                 StringBuilder body = new StringBuilder();
                 body.AppendLine("International Concept Academy");
                 body.AppendFormat("User '{0}' Hass Ask to join Course" , user.NameOfUser);
-                body.AppendFormat("clik the Link to Accept it<a href='{0}'> click </a>", passwordResetLink);
+                body.AppendFormat("clik the Link to Accept it  '{0}'", passwordResetLink);
             foreach (var item in Email)
             {
                 MailSender.SendMail(new MailViewModel()

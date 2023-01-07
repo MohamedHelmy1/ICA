@@ -44,7 +44,7 @@ namespace BLL.Servies
 
         public int count()
         {
-            return db.Courses.Count();
+            return db.Courses.Where(x=>x.Delete==false).Count();
           
 
         }

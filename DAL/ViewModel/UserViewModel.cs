@@ -15,8 +15,8 @@ namespace DAL.ViewModel
         public string Date { get; set; }
         public string Cuntery { get; set; }
         public string phone { get; set; }
+        public string FK_MarketerId { get; set; }
 
-        
         public string UerId { get; set; }
 
 

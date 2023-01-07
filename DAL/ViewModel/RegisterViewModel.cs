@@ -33,6 +33,8 @@ namespace DAL.ViewModel
         public string Name { get; set; }
         [Required(ErrorMessage = "اختر االماجستير او الدكتراه")]
         public int CourseId { get; set; }
+        public string FK_MarketerId { get; set; }
+
 
 
 

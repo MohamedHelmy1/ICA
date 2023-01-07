@@ -1,7 +1,6 @@
-﻿@model DAL.ViewModel.CoursesViewModel
-
+﻿@model DAL.ViewModel.RegisterViewModel
 @{
-    ViewData["Title"] = "AddCourses";
+    ViewData["Title"] = "Add Marketer";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -25,7 +24,7 @@
                         <div class="page-title">
                             <ol class="breadcrumb text-right">
                                 <li><a href="/Admin/Index">Dashboard</a></li>
-                                <li class="active"> Courses </li>
+                                <li class="active"> Add Marketer </li>
                             </ol>
                         </div>
                     </div>
@@ -40,34 +39,47 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header" style=" display: flex; justify-content: space-between;">
-                            <strong class="card-title">Add Courses</strong>
+                            <strong class="card-title">Add Marketer</strong>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                     <form method="post" asp-action="AddCourses"   enctype="multipart/form-data" >
+                                     <form method="post" asp-action="AddMarketer"   enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
            
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Course Name</label>
-                <input asp-for="Name" class="form-control" placeholder="Courses Name"/>
+                <label asp-for="Name" class="control-label">Marketer Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Marketer Name"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-             <div class="form-group">
-                <label asp-for="StartDate" class="control-label">Course StartDate</label>
-                <input asp-for="StartDate" type="datetime-local" class="form-control" placeholder="Courses StartDate"/>
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"> Course Description</label>
-                <input asp-for="Description" class="form-control"placeholder="Courses Description" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+                <label asp-for="Email" class="control-label"> Email</label>
+                <input asp-for="Email" class="form-control"placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div> 
             <div class="form-group">
-                <label asp-for="Images" class="control-label">Image</label>
-                <input type="file" asp-for="Images" class="form-control" />
-                <span asp-validation-for="Images" class="text-danger"></span>
+                <label asp-for="Countery" class="control-label"> SCountery</label>
+                <input asp-for="Countery" class="form-control"placeholder="Countery" />
+                <span asp-validation-for="Countery" class="text-danger"></span>
+            </div> 
+            <div class="form-group">
+                <label asp-for="phone" class="control-label"> phone</label>
+                <input asp-for="phone" class="form-control"placeholder="phone" />
+                <span asp-validation-for="phone" class="text-danger"></span>
             </div>
+               <div class="form-group">
+                <label asp-for="Password" class="control-label"> Password</label>
+                <input asp-for="Password" class="form-control"placeholder="******" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>  
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"> Confirm Password</label>
+                <input asp-for="ConfirmPassword" class="form-control"placeholder="******" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -96,3 +108,6 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+

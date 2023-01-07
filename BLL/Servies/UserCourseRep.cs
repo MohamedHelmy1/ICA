@@ -78,7 +78,7 @@ namespace BLL.Servies
                 StringBuilder body = new StringBuilder();
                 body.AppendLine("International Concept Academy");
                 body.AppendFormat("Admin Accept You to join Course:'{0}'",course);
-                body.AppendFormat("clik the Link to join it<ahref='{0}'> click</a>", url);
+                body.AppendFormat("clik the Link to join it  click '{0}'", url);
                 MailSender.SendMail(new MailViewModel()
                 {
 
@@ -140,6 +140,7 @@ namespace BLL.Servies
             {
                 UserViewModel obj = new UserViewModel();
                var user= await userManager.FindByIdAsync(item.UserId);
+                //var user1= db.Users.Where(x => x.Id == user.Id).FirstOrDefault();   
                 obj.Email = user.Email;
                 obj.name = user.NameOfUser;
                 obj.Date = item.Date;

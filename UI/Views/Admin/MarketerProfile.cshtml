@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewData["Title"] = "MarketerProfile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@{
+
+
+    var data1 = ViewBag.user;
+    var data = ViewBag.data;
+    var Number = 1;
+
+  
+
+}
+<head>
+    
+    <style>
+        #weatherWidget .currentDesc {
+            color: #ffffff !important;
+        }
+
+        .traffic-chart {
+            min-height: 335px;
+        }
+
+        #flotPie1 {
+            height: 150px;
+        }
+
+            #flotPie1 td {
+                padding: 3px;
+            }
+
+            #flotPie1 table {
+                top: 20px !important;
+                right: -10px !important;
+            }
+
+        .chart-container {
+            display: table;
+            min-width: 270px;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        #flotLine5 {
+            height: 105px;
+        }
+
+        #flotBarChart {
+            height: 150px;
+        }
+
+        #cellPaiChart {
+            height: 160px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+ 
+      
+      <!-- Widgets  -->
+                <div class="row">
+                   
+
+                 <div class="col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="pe-7s-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class=""> @data1.NameOfUser  -Id </span></div>
+                                            <div class="stat-heading">@data1.Id</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="pe-7s-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">@data.Count</span></div>
+                                            <div class="stat-heading">Marketer Client</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style=" display: flex; justify-content: space-between;">
+                            <strong class="card-title">All Student Table</strong>
+                           
+                        </div>
+                        <div class="card-body">
+                            <table id="tblSlider"  class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>#</th>
+                                        <th>Email</th>
+                                       <th>Name</th>
+                                       <th>phone</th>
+                                       <th>Countery</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in data)
+                                   {
+                                       <tr>
+                                        <th>@Number</th>
+                                        <th>@item.Email</th>
+                                        <th>@item.name</th>
+                                         <th>@item.phone</th>
+                                        <th>@item.Cuntery</th>
+                                         <th>@item.Date</th>
+                                     
+                                    </tr>
+                                    Number++;
+                                   }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+    </body>
+
+<script src="~/js/jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    $('#tblSlider').DataTable();
+});
+                
+
+</Script>
+

@@ -1,10 +1,12 @@
-﻿using BLL.Interface;
+﻿using BLL.Helper.SendMail;
+using BLL.Interface;
 using DAL.Entities;
 using DAL.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace UI.Areas.Admin.Controllers
@@ -14,6 +16,9 @@ namespace UI.Areas.Admin.Controllers
     [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
+        private readonly ImarketerViewModel marketer;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly SignInManager<AplicationUser> signInManager;
         private readonly UserManager<AplicationUser> userManger;
         private readonly ISliderRep slider;
         private readonly ICoursesRep courses;
@@ -21,8 +26,11 @@ namespace UI.Areas.Admin.Controllers
         private readonly IAboutRep about;
         private readonly IUserCourseRep userCourse;
 
-        public AdminController(UserManager<AplicationUser> userManger,ISliderRep slider,ICoursesRep courses,ICourseDetail courseDetail,IAboutRep about,IUserCourseRep userCourse)
+        public AdminController(ImarketerViewModel marketer,RoleManager<IdentityRole> roleManager, SignInManager<AplicationUser> signInManager, UserManager<AplicationUser> userManger,ISliderRep slider,ICoursesRep courses,ICourseDetail courseDetail,IAboutRep about,IUserCourseRep userCourse)
         {
+            this.marketer = marketer;
+            this.roleManager = roleManager;
+            this.signInManager = signInManager;
             this.userManger = userManger;
             this.slider = slider;
             this.courses = courses;
@@ -432,5 +440,125 @@ namespace UI.Areas.Admin.Controllers
 
             return Json(user.NameOfUser);
         }
+        public async Task <IActionResult> GetAllMarketer()
+        {
+            ViewBag.user = await userManger.GetUsersInRoleAsync("Marketer");
+            ViewBag.user1 = await userManger.GetUsersInRoleAsync("DeleteMarketer");
+
+
+            return View();
+        }
+        public IActionResult AddMarketer()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task <IActionResult> AddMarketer(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new AplicationUser()
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Cuntery = model.Countery,
+                    PhoneNumber = model.phone,
+                    NameOfUser = model.Name
+                };
+                var result = await userManger.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+
+                   
+
+                    var TestRole = await roleManager.RoleExistsAsync("Marketer");
+                    var user2 = await userManger.FindByEmailAsync(model.Email);
+
+                    var userId = user2.Id;
+                    if (!TestRole)
+                    {
+                        var role = new IdentityRole { Name = "Marketer" };
+                        await roleManager.CreateAsync(role);
+                    }
+                    // put LabDoctor in LabDoctor role
+                    var result2 = await userManger.AddToRoleAsync(user2, "Marketer");
+                    //send massage to Admin Acount
+                    //var Email = await userManger.GetUsersInRoleAsync("Admin");
+                    //var passwordResetLink = Url.Action("AcceptUser", "Admin", "", Request.Scheme);
+                    //StringBuilder body = new StringBuilder();
+                    //body.AppendLine("International Concept Academy");
+                    //body.AppendFormat("User '{0}' Hass Ask to join Course", user.NameOfUser);
+                    //body.AppendFormat("clik the Link to Accept it    '{0}'", passwordResetLink);
+
+                    //foreach (var item in Email)
+                    //{
+                    //    MailSender.SendMail(new MailViewModel()
+                    //    {
+
+                    //        Email = item.Email,
+                    //        Title = "International Concept Academy",
+                    //        Message = body.ToString()
+                    //    });
+                    //}
+                    return RedirectToAction("AddMarketer");
+                }
+                else
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+                    }
+                    return View(model);
+                }
+
+            }
+            return View();
+           
+        }
+        public async Task <IActionResult> MarketerProfile(string Id)
+        {
+            ViewBag.user = await userManger.FindByIdAsync(Id);
+            ViewBag.data = marketer.GetMarketerUser(Id);
+
+            return View();
+        }
+        [HttpPost] 
+        public async Task<IActionResult> Delete(string userId)
+        {
+
+            var user = await userManger.FindByIdAsync(userId);
+            var result = await userManger.RemoveFromRoleAsync(user, "Marketer");
+
+            var TestRole = await roleManager.RoleExistsAsync("DeleteMarketer");
+
+            if (!TestRole)
+            {
+                var role = new IdentityRole { Name = "DeleteMarketer" };
+                await roleManager.CreateAsync(role);
+            }
+            // put LabDoctor in LabDoctor role
+            var result2 = await userManger.AddToRoleAsync(user, "DeleteMarketer");
+
+            return Json("");
+        }
+        public async Task<IActionResult> Recover(string userId)
+        {
+
+            var user = await userManger.FindByIdAsync(userId);
+            var result = await userManger.RemoveFromRoleAsync(user, "DeleteMarketer");
+
+            var TestRole = await roleManager.RoleExistsAsync("Marketer");
+
+            if (!TestRole)
+            {
+                var role = new IdentityRole { Name = "Marketer" };
+                await roleManager.CreateAsync(role);
+            }
+            // put LabDoctor in LabDoctor role
+            var result2 = await userManger.AddToRoleAsync(user, "Marketer");
+
+            return Json("");
+        }
+
     }
 }

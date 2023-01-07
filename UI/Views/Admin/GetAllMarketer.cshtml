@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewData["Title"] = "GetAllMarketer";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var data = ViewBag.user;
+    var data1 = ViewBag.user1;
+
+    int Number = 1;
+}
+
+@inject BLL.Interface.ICoursesRep course
+@inject BLL.Interface.ImarketerViewModel marketer
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body" id="Data" style="border:none;">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" style="margin:auto">Close</button>
+        </div>
+      </div>
+      
+    </div>
+    </div>
+
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-inner">
+            <div class="row m-0">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="/Admin/Index">Dashboard</a></li>
+                                <li class="active"> Courses </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style=" display: flex; justify-content: space-between;">
+                            <strong class="card-title">Marketer Table</strong>
+                            <a href="/Admin/AddMarketer" type="button" class="btn btn-outline-info">+</a>
+                        </div>
+                       <div class="card-body">
+                            <table id="tblSlider"  class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>#</th>
+                                        <th>User Name</th>
+                                       
+                                       <th>Email</th>
+                                       <th>Cuntery</th>
+                                       <th>Phone</th>
+                                       <th>Count Of User</th>
+
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   @foreach (var item in data)
+                                   {
+                                       <tr>
+                                        <th>@Number</th>
+                                        <th>@item.Email</th>
+                                        <th>@item.NameOfUser</th>
+                                         <th>@item.PhoneNumber</th>
+                                        <th>@item.Cuntery</th>
+                                        
+                                        <th>@marketer.GetMarketerUser(@item.Id).Count</th>
+                                     <th> <a href="/Admin/MarketerProfile?id=@item.Id"> View </a>
+                                          <a onclick="Delete('@item.Id')" class="col-4 btn delete m-0 p-1 p-1"  title="Delete"><i style="color: red;" class="fa-solid fa-trash-can"></i></a>
+                                          </th>
+                                    </tr>
+                                    Number++;
+                                   }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+        <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style=" display: flex; justify-content: space-between;">
+                            <strong class="card-title"> Remove Marketer Table</strong>
+                        </div>
+                       <div class="card-body">
+                            <table id="tblSlider1"  class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>#</th>
+                                        <th>User Name</th>
+                                       
+                                       <th>Email</th>
+                                       <th>Cuntery</th>
+                                       <th>Phone</th>
+                                       <th>Count Of User</th>
+
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   @foreach (var item in data1)
+                                   {
+                                       <tr>
+                                        <th>@Number</th>
+                                        <th>@item.Email</th>
+                                        <th>@item.NameOfUser</th>
+                                         <th>@item.PhoneNumber</th>
+                                        <th>@item.Cuntery</th>
+                                        
+                                        <th>@marketer.GetMarketerUser(@item.Id).Count</th>
+                                     <th> <a href="/Admin/MarketerProfile?id=@item.Id"> View </a>
+                                          <a onclick="Returm('@item.Id')" class="col-4 btn delete m-0 p-1 p-1"  title="Recover"><i style="color: red;" class="fa-solid fa-trash-can"></i></a>
+                                          </th>
+                                    </tr>
+                                    Number++;
+                                   }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+
+<script src="~/js/jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+    $('#tblSlider').DataTable();
+    $('#tblSlider1').DataTable();
+
+});
+     function Delete(id) {
+        swal({
+            title: `Are you sure you want to delete this record?`,
+            text: "If you delete this, it will be gone forever.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/Admin/Delete",
+                        data: {
+                            userId: id,
+
+                        },
+
+                        success: function (res) {
+
+                            swal("Deleted!", "Your imaginary file has been archived.", "success");
+                            location.reload();
+
+                        }
+
+                    });
+                }
+            });
+    }
+      function Returm(id) {
+        swal({
+            title: `Are you sure you want to Rescover this record?`,
+            text: "If you rescover this, it will be gone forever.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+
+                        type: "POST",
+                        url: "/Admin/Recover",
+                        data: {
+                            userId: id,
+
+                        },
+
+                        success: function (res) {
+
+                            swal("Deleted!", "Your imaginary file has been archived.", "success");
+                            location.reload();
+
+                        }
+
+                    });
+                }
+            });
+    }
+</script>
+
+

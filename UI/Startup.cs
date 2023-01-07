@@ -57,6 +57,8 @@ namespace UI
                 services.AddScoped<ICourseDetail, CourseDetail>();
             services.AddScoped<IAboutRep, AboutRep>();
             services.AddScoped<IUserCourseRep, UserCourseRep>();
+            services.AddScoped<ImarketerViewModel, marketerViewModel>();
+
 
             services.ConfigureApplicationCookie(options =>
             {

@@ -159,7 +159,7 @@ namespace UI.Controllers
                 return View();
             }
 
-            return RedirectToAction("Login");
+            return RedirectToAction("/Home/Login");
         }
 
         public IActionResult ConfirmResetPassword()
@@ -186,7 +186,7 @@ namespace UI.Controllers
 
                         if (result.Succeeded)
                         {
-                            return RedirectToAction("/Home/Login");
+                            return RedirectToAction("index", "Home");
                         }
 
                         foreach (var error in result.Errors)
@@ -195,7 +195,7 @@ namespace UI.Controllers
                         }
                     }
 
-                    return RedirectToAction("/Home/Login");
+                    return RedirectToAction("index", "Home");
 
 
                 }
